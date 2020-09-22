@@ -1,8 +1,9 @@
 <template>
 	<div id="app">
 		<div id="nav">
-			<router-link to="/users">Usuarios</router-link>|
-			<router-link to="/schools">Escuelas</router-link>|
+			<router-link to="/admin/users">Usuarios</router-link>|
+			<router-link to="/admin/schools">Escuelas</router-link>|
+			<router-link to="/login">Login</router-link>|
 		</div>
 		<b-container>
 			<router-view />
