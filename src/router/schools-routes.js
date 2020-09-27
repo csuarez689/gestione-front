@@ -3,6 +3,7 @@ export default [
 		path: '/schools',
 		component: () =>
 			import(/* webpackChunkName: "schools"*/ '../views/SchoolsPage'),
+
 		children: [
 			{
 				path: '',

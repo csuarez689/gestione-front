@@ -21,4 +21,20 @@ const router = new VueRouter({
 	routes,
 });
 
+router.beforeEach((to, from, next) => {
+	if (to.meta.auth) {
+		if (!router.app.isAuth)
+			return next({ path: '/login', query: { returnUrl: to.path } });
+		if (to.meta.admin) {
+			if (!router.app.isAdmin) return next({ path: '/' });
+			return next();
+		}
+		if (!to.meta.admin) {
+			if (!router.app.isAdmin) return next({ path: '/' });
+			return next();
+		}
+	}
+	next();
+});
+
 export default router;

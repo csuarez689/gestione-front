@@ -1,16 +1,19 @@
 <template>
 	<div id="app">
-		<div id="nav">
-			<router-link to="/admin/users">Usuarios</router-link>|
-			<router-link to="/admin/schools">Escuelas</router-link>|
-			<router-link to="/login">Login</router-link>|
-		</div>
+		<nav-bar v-if="$root.isAuth" :user="$root.user"></nav-bar>
+
 		<b-container>
 			<router-view />
 		</b-container>
 	</div>
 </template>
+<script>
+import NavBar from "./components/shared/NavBar";
 
+export default {
+	components: { NavBar }
+};
+</script>
 <style lang="scss">
 //Tables styles
 @import "./assets/sass/table";

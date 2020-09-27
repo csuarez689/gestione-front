@@ -1,6 +1,5 @@
 <template>
 	<div class="login-form">
-		<h3 class="text-center">Bienvenido</h3>
 		<form @submit.prevent="sendForm" ref="form">
 			<div class="avatar">
 				<img src="../assets/img/avatar.png" alt="Avatar" />
@@ -27,21 +26,25 @@
 				/>
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Ingresar</button>
+				<button
+					type="submit"
+					class="btn btn-primary btn-lg btn-block login-btn"
+				>
+					Ingresar
+				</button>
 			</div>
 			<div class="form-footer">
 				<a href>¿Olvidaste tu contraseña?</a>
 			</div>
 		</form>
-		<b-alert :show="message.length>0" dismissible variant="danger">{{message}}</b-alert>
+		<b-alert :show="message.length > 0" dismissible variant="danger">{{
+			message
+		}}</b-alert>
 	</div>
 </template>
 
 <script>
-import FormMixin from "../components/shared/mixins/formMixin";
-
 export default {
-	mixins: [FormMixin],
 	data() {
 		return {
 			form: {
@@ -51,31 +54,26 @@ export default {
 			message: ""
 		};
 	},
-	computed: {
-		loggedIn() {
-			return this.$store.state.auth.status.loggedIn;
-		}
-	},
-	created() {
-		if (this.loggedIn) {
-			this.$router.push("/users");
-		}
-	},
 	methods: {
-		create() {
-			this.message = "";
-			this.$store.dispatch("auth/login", this.form).then(
-				() => {
-					console.log("si");
+		login() {
+			this.$http
+				.post("auth/login", this.form)
+				.then(res => {
+					this.$root.user = res.data.user;
+					this.$root.token = res.data.access_token;
 					this.$router.push("/users");
-				},
-				error => {
+				})
+				.catch(error => {
 					this.message =
-						error.response.status === 401
+						error.response.status == 401
 							? "Credenciales invalidas."
 							: "Ha ocurrido un error.";
-				}
-			);
+					this.form.password = "";
+				});
+		},
+		sendForm() {
+			if (this.$refs.form.checkValidity()) this.login();
+			else this.$refs.form.reportValidity();
 		}
 	}
 };
