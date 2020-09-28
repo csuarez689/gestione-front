@@ -7,9 +7,8 @@
 						v-model="text"
 						type="search"
 						ref="searchInput"
-						@keypress.enter="
-                            onSearch()
-                        "
+						@keypress.enter="onSearch()"
+						@blur="onSearch()"
 						placeholder="Buscar..."
 					></b-form-input>
 					<b-input-group-append>

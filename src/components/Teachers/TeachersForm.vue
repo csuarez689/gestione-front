@@ -2,7 +2,7 @@
 	<b-card class="mt-5">
 		<template v-slot:header>
 			<h5 class="my-1">
-				{{ isEditMode ? "Editar Usuario" : "Nuevo Usuario" }}
+				{{ isEditMode ? "Editar Docente" : "Nuevo Docente" }}
 			</h5>
 		</template>
 		<b-card-body>
@@ -41,54 +41,41 @@
 				</div>
 				<b-row>
 					<b-col sm="12" md="6" class="form-group">
-						<label>DNI</label>
+						<label>CUIT/CUIL</label>
 						<input
 							type="text"
-							name="dni"
+							name="cuil"
 							class="form-control"
-							:class="{ 'is-invalid': hasError('dni') }"
+							:class="{ 'is-invalid': hasError('cuil') }"
 							required
-							minlength="8"
-							maxlength="8"
-							v-model="form.dni"
+							minlength="13"
+							maxlength="13"
+							v-model="form.cuil"
 						/>
-						<div class="invalid-feedback" v-if="hasError('dni')">
-							{{ getError("dni") }}
+						<div class="invalid-feedback" v-if="hasError('cuil')">
+							{{ getError("cuil") }}
 						</div>
 					</b-col>
 					<b-col sm="12" md="6" class="form-group">
-						<label>Telefono</label>
-						<input
-							type="tel"
-							name="phone"
-							class="form-control"
-							:class="{ 'is-invalid': hasError('phone') }"
-							required
-							minlength="10"
-							maxlength="15"
-							v-model="form.phone"
-						/>
-						<div class="invalid-feedback" v-if="hasError('phone')">
-							{{ getError("phone") }}
+						<b-form-group label="Sexo">
+							<b-form-radio-group
+								name="bilingual"
+								v-model="form.gender"
+							>
+								<b-form-radio value="Masculino"
+									>Masculino</b-form-radio
+								>
+								<b-form-radio value="Femenino"
+									>Femenino</b-form-radio
+								>
+							</b-form-radio-group>
+						</b-form-group>
+						<div class="invalid-feedback" v-if="hasError('gender')">
+							{{ getError("gender") }}
 						</div>
 					</b-col>
 				</b-row>
-				<div class="form-group">
-					<label>Correo electrónico</label>
-					<input
-						type="email"
-						name="email"
-						class="form-control"
-						:class="{ 'is-invalid': hasError('email') }"
-						required
-						maxlength="100"
-						v-model="form.email"
-						:disabled="isEditMode"
-					/>
-					<div class="invalid-feedback" v-if="hasError('email')">
-						{{ getError("email") }}
-					</div>
-				</div>
+				<location-select v-model="location"></location-select>
 			</form>
 		</b-card-body>
 		<template v-slot:footer>
@@ -115,35 +102,37 @@
 <style lang="scss" scoped>
 .card {
 	margin: auto;
-	max-width: 40rem;
+	max-width: 45rem;
 	min-width: 20rem;
 }
 </style>
 
 <script>
 import FormMixin from "../shared/mixins/formMixin";
+import LocationSelect from "../shared/LocationSelect";
 
 export default {
 	mixins: [FormMixin],
+	components: { LocationSelect },
 	data() {
 		return {
+			location: { province_id: "", department_id: "", locality_id: "" },
 			form: {
 				name: "",
 				last_name: "",
-				dni: "",
-				email: "",
-				phone: ""
+				cuil: "",
+				gender: "Masculino",
+				locality_id: ""
 			}
 		};
 	},
 	methods: {
 		update() {
 			this.$http
-
-				.put(`users/${this.$route.params.id}`, this.form)
+				.put(`teachers/${this.$route.params.id}`, this.form)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createToast("Usuario actualizado.", "success");
+					this.$root.createToast("Docente actualizado.", "success");
 				})
 				.catch(error => {
 					console.log(error.response);
@@ -152,13 +141,10 @@ export default {
 		},
 		create() {
 			this.$http
-				.post("users", this.form)
+				.post("teachers", this.form)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createToast(
-						"Usuario creado. Se ha enviado un correo de notificación.",
-						"success"
-					);
+					this.$root.createToast("Docente creado.", "success");
 				})
 				.catch(error => {
 					console.log(error.response);
@@ -169,18 +155,28 @@ export default {
 	created() {
 		if (this.isEditMode) {
 			this.$http
-				.get(`users/${this.$route.params.id}`)
+				.get(`teachers/${this.$route.params.id}`)
 				.then(res => {
 					this.form.name = res.data.name;
 					this.form.last_name = res.data.last_name;
-					this.form.dni = res.data.dni;
-					this.form.email = res.data.email;
-					this.form.phone = res.data.phone;
+					this.form.cuil = res.data.cuil;
+					this.form.gender = res.data.gender;
+					this.location.province_id =
+						res.data.locality.department.province_id;
+					this.location.department_id =
+						res.data.locality.department.id;
+					this.location.locality_id = res.data.locality.id;
+					this.selectedUrl = res.data._links.self;
 				})
 				.catch(error => {
 					this.$route.go(-1);
 					console.log(error);
 				});
+		}
+	},
+	watch: {
+		"location.locality_id"(value) {
+			this.form.locality_id = value;
 		}
 	}
 };

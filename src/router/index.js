@@ -2,12 +2,13 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import UsersRoutes from './users-routes';
 import SchoolsRoutes from './schools-routes';
-
+import TeachersRoutes from './teachers-routes';
 Vue.use(VueRouter);
 
 const routes = [
 	...UsersRoutes,
 	...SchoolsRoutes,
+	...TeachersRoutes,
 	{
 		path: '/login',
 		name: 'Login',

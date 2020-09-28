@@ -1,7 +1,9 @@
 <template>
 	<b-card class="mt-5">
 		<template v-slot:header>
-			<h5 class="my-1">{{isEditMode ? 'Editar Escuela' : 'Nueva Escuela'}}</h5>
+			<h5 class="my-1">
+				{{ isEditMode ? "Editar Escuela" : "Nueva Escuela" }}
+			</h5>
 		</template>
 
 		<b-card-body>
@@ -13,13 +15,15 @@
 							type="text"
 							name="name"
 							class="form-control"
-							:class="{'is-invalid': hasError('name')}"
+							:class="{ 'is-invalid': hasError('name') }"
 							required
 							maxlength="150"
 							minlength="10"
 							v-model="form.name"
 						/>
-						<div class="invalid-feedback" v-if="hasError('name')">{{ getError('name') }}</div>
+						<div class="invalid-feedback" v-if="hasError('name')">
+							{{ getError("name") }}
+						</div>
 					</b-col>
 					<b-col sm="12" md="6" class="form-group">
 						<label>Director</label>
@@ -27,13 +31,18 @@
 							type="text"
 							name="director"
 							class="form-control"
-							:class="{'is-invalid': hasError('director')}"
+							:class="{ 'is-invalid': hasError('director') }"
 							required
 							maxlength="150"
 							minlength="5"
 							v-model="form.director"
 						/>
-						<div class="invalid-feedback" v-if="hasError('director')">{{ getError('director') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('director')"
+						>
+							{{ getError("director") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -43,13 +52,15 @@
 							type="text"
 							name="cue"
 							class="form-control"
-							:class="{'is-invalid': hasError('cue')}"
+							:class="{ 'is-invalid': hasError('cue') }"
 							required
 							maxlength="9"
 							minlength="9"
 							v-model="form.cue"
 						/>
-						<div class="invalid-feedback" v-if="hasError('cue')">{{ getError('cue') }}</div>
+						<div class="invalid-feedback" v-if="hasError('cue')">
+							{{ getError("cue") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Estudiantes</label>
@@ -57,7 +68,9 @@
 							type="number"
 							name="number_students"
 							class="form-control"
-							:class="{'is-invalid': hasError('number_students')}"
+							:class="{
+								'is-invalid': hasError('number_students')
+							}"
 							min="20"
 							max="10000"
 							v-model="form.number_students"
@@ -65,7 +78,9 @@
 						<div
 							class="invalid-feedback"
 							v-if="hasError('number_students')"
-						>{{ getError('number_students') }}</div>
+						>
+							{{ getError("number_students") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Ámbito</label>
@@ -73,13 +88,23 @@
 							required
 							class="form-control"
 							name="ambit_id"
-							:class="{'is-invalid': hasError('ambit_id')}"
+							:class="{ 'is-invalid': hasError('ambit_id') }"
 							v-model="form.ambit_id"
 						>
 							<option value hidden></option>
-							<option v-for="ambit in ambits" :key="ambit.id" :value="ambit.id">{{ambit.name}}</option>
+							<option
+								v-for="ambit in ambits"
+								:key="ambit.id"
+								:value="ambit.id"
+								>{{ ambit.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('ambit_id')">{{ getError('ambit_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('ambit_id')"
+						>
+							{{ getError("ambit_id") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -89,13 +114,23 @@
 							required
 							class="form-control"
 							name="sector_id"
-							:class="{'is-invalid': hasError('sector_id')}"
+							:class="{ 'is-invalid': hasError('sector_id') }"
 							v-model="form.sector_id"
 						>
 							<option value hidden></option>
-							<option v-for="sector in sectors" :key="sector.id" :value="sector.id">{{sector.name}}</option>
+							<option
+								v-for="sector in sectors"
+								:key="sector.id"
+								:value="sector.id"
+								>{{ sector.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('sector_id')">{{ getError('sector_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('sector_id')"
+						>
+							{{ getError("sector_id") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Nivel</label>
@@ -103,23 +138,35 @@
 							required
 							class="form-control"
 							name="level_id"
-							:class="{'is-invalid': hasError('level_id')}"
+							:class="{ 'is-invalid': hasError('level_id') }"
 							v-model="form.level_id"
 							@change="resetHighSchool"
 						>
 							<option value hidden></option>
-							<option v-for="level in levels" :key="level.id" :value="level.id">{{level.name}}</option>
+							<option
+								v-for="level in levels"
+								:key="level.id"
+								:value="level.id"
+								>{{ level.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('level_id')">{{ getError('level_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('level_id')"
+						>
+							{{ getError("level_id") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Tipo Secundario</label>
 						<select
-							:required="form.level_id==3"
+							:required="form.level_id == 3"
 							:disabled="form.level_id != 3"
 							class="form-control"
 							name="high_school_type_id"
-							:class="{'is-invalid': hasError('high_school_type_id')}"
+							:class="{
+								'is-invalid': hasError('high_school_type_id')
+							}"
 							v-model="form.high_school_type_id"
 						>
 							<option hidden></option>
@@ -127,12 +174,15 @@
 								v-for="highSchoolType in highSchoolTypes"
 								:key="highSchoolType.id"
 								:value="highSchoolType.id"
-							>{{highSchoolType.name}}</option>
+								>{{ highSchoolType.name }}</option
+							>
 						</select>
 						<div
 							class="invalid-feedback"
 							v-if="hasError('high_school_type_id')"
-						>{{ getError('high_school_type_id') }}</div>
+						>
+							{{ getError("high_school_type_id") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -142,13 +192,23 @@
 							required
 							class="form-control"
 							name="type_id"
-							:class="{'is-invalid': hasError('type_id')}"
+							:class="{ 'is-invalid': hasError('type_id') }"
 							v-model="form.type_id"
 						>
 							<option value hidden></option>
-							<option v-for="type in types" :key="type.id" :value="type.id">{{type.name}}</option>
+							<option
+								v-for="type in types"
+								:key="type.id"
+								:value="type.id"
+								>{{ type.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('type_id')">{{ getError('type_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('type_id')"
+						>
+							{{ getError("type_id") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Categoría</label>
@@ -156,7 +216,7 @@
 							required
 							class="form-control"
 							name="category_id"
-							:class="{'is-invalid': hasError('category_id')}"
+							:class="{ 'is-invalid': hasError('category_id') }"
 							v-model="form.category_id"
 						>
 							<option value hidden></option>
@@ -164,9 +224,15 @@
 								v-for="category in categories"
 								:key="category.id"
 								:value="category.id"
-							>{{category.name}}</option>
+								>{{ category.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('category_id')">{{ getError('category_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('category_id')"
+						>
+							{{ getError("category_id") }}
+						</div>
 					</b-col>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Jornada</label>
@@ -174,7 +240,9 @@
 							required
 							class="form-control"
 							name="journey_type_id"
-							:class="{'is-invalid': hasError('journey_type_id')}"
+							:class="{
+								'is-invalid': hasError('journey_type_id')
+							}"
 							v-model="form.journey_type_id"
 						>
 							<option hidden></option>
@@ -182,18 +250,24 @@
 								v-for="journeyType in journeyTypes"
 								:key="journeyType.id"
 								:value="journeyType.id"
-							>{{journeyType.name}}</option>
+								>{{ journeyType.name }}</option
+							>
 						</select>
 						<div
 							class="invalid-feedback"
 							v-if="hasError('journey_type_id')"
-						>{{ getError('journey_type_id') }}</div>
+						>
+							{{ getError("journey_type_id") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
 					<b-col sm="3">
 						<b-form-group label="Bilingue">
-							<b-form-radio-group name="bilingual" v-model="form.bilingual">
+							<b-form-radio-group
+								name="bilingual"
+								v-model="form.bilingual"
+							>
 								<b-form-radio value="true">Si</b-form-radio>
 								<b-form-radio value="false">No</b-form-radio>
 							</b-form-radio-group>
@@ -205,13 +279,18 @@
 							type="text"
 							name="orientation"
 							class="form-control"
-							:class="{'is-invalid': hasError('orientation')}"
+							:class="{ 'is-invalid': hasError('orientation') }"
 							required
 							minlength="10"
 							maxlength="150"
 							v-model="form.orientation"
 						/>
-						<div class="invalid-feedback" v-if="hasError('orientation')">{{ getError('orientation') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('orientation')"
+						>
+							{{ getError("orientation") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -221,12 +300,14 @@
 							type="tel"
 							name="phone"
 							class="form-control"
-							:class="{'is-invalid': hasError('phone')}"
+							:class="{ 'is-invalid': hasError('phone') }"
 							minlength="10"
 							maxlength="15"
 							v-model="form.phone"
 						/>
-						<div class="invalid-feedback" v-if="hasError('phone')">{{ getError('phone') }}</div>
+						<div class="invalid-feedback" v-if="hasError('phone')">
+							{{ getError("phone") }}
+						</div>
 					</b-col>
 					<b-col sm="12" md="6" class="form-group">
 						<label>Teléfono interno</label>
@@ -234,7 +315,9 @@
 							type="tel"
 							name="internal_phone"
 							class="form-control"
-							:class="{'is-invalid': hasError('internal_phone')}"
+							:class="{
+								'is-invalid': hasError('internal_phone')
+							}"
 							minlength="10"
 							maxlength="15"
 							v-model="form.internal_phone"
@@ -242,7 +325,9 @@
 						<div
 							class="invalid-feedback"
 							v-if="hasError('internal_phone')"
-						>{{ getError('internal_phone') }}</div>
+						>
+							{{ getError("internal_phone") }}
+						</div>
 					</b-col>
 				</b-row>
 				<b-row>
@@ -252,13 +337,15 @@
 							type="email"
 							name="email"
 							class="form-control"
-							:class="{'is-invalid': hasError('email')}"
+							:class="{ 'is-invalid': hasError('email') }"
 							required
 							minlength="15"
 							maxlength="100"
 							v-model="form.email"
 						/>
-						<div class="invalid-feedback" v-if="hasError('email')">{{ getError('email') }}</div>
+						<div class="invalid-feedback" v-if="hasError('email')">
+							{{ getError("email") }}
+						</div>
 					</b-col>
 					<b-col sm="12" md="6" class="form-group">
 						<label>Dirección</label>
@@ -266,13 +353,18 @@
 							type="text"
 							name="address"
 							class="form-control"
-							:class="{'is-invalid': hasError('address')}"
+							:class="{ 'is-invalid': hasError('address') }"
 							required
 							minlength="10"
 							maxlength="150"
 							v-model="form.address"
 						/>
-						<div class="invalid-feedback" v-if="hasError('address')">{{ getError('address') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('address')"
+						>
+							{{ getError("address") }}
+						</div>
 					</b-col>
 				</b-row>
 
@@ -286,7 +378,7 @@
 						<select
 							class="form-control"
 							name="user_id"
-							:class="{'is-invalid': hasError('user_id')}"
+							:class="{ 'is-invalid': hasError('user_id') }"
 							v-model="form.user_id"
 						>
 							<option value></option>
@@ -294,34 +386,58 @@
 								v-for="user in users"
 								:key="user.id"
 								:value="user.id"
-							>{{user.last_name+' '+user.name}}</option>
+								>{{ user.last_name + " " + user.name }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('user_id')">{{ getError('user_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('user_id')"
+						>
+							{{ getError("user_id") }}
+						</div>
 					</b-col>
 					<b-col sm="12" md="4" class="form-group">
 						<label>DNI Encargado</label>
 						<select
 							class="form-control"
-							:class="{'is-invalid': hasError('user_id')}"
+							:class="{ 'is-invalid': hasError('user_id') }"
 							v-model="form.user_id"
 						>
 							<option value></option>
-							<option v-for="user in sortedUsersByDNI" :key="user.id" :value="user.id">{{user.dni}}</option>
+							<option
+								v-for="user in sortedUsersByDNI"
+								:key="user.id"
+								:value="user.id"
+								>{{ user.dni }}</option
+							>
 						</select>
-						<div class="invalid-feedback" v-if="hasError('user_id')">{{ getError('user_id') }}</div>
+						<div
+							class="invalid-feedback"
+							v-if="hasError('user_id')"
+						>
+							{{ getError("user_id") }}
+						</div>
 					</b-col>
 				</b-row>
 			</form>
 		</b-card-body>
 		<template v-slot:footer>
-			<b-button type="reset" size="md" variant="outline" @click="$router.go(-1)" class="mr-3">Cancelar</b-button>
+			<b-button
+				type="reset"
+				size="md"
+				variant="outline"
+				@click="$router.go(-1)"
+				class="mr-3"
+				>Cancelar</b-button
+			>
 			<b-button
 				type="submit"
 				size="md"
 				@click="sendForm"
-				:class="{'btn-success': !isEditMode, 'btn-info': isEditMode}"
+				:class="{ 'btn-success': !isEditMode, 'btn-info': isEditMode }"
 				class="text-light"
-			>{{isEditMode ? 'Actualizar': 'Guardar'}}</b-button>
+				>{{ isEditMode ? "Actualizar" : "Guardar" }}</b-button
+			>
 		</template>
 	</b-card>
 </template>
@@ -375,7 +491,7 @@ export default {
 				.put(`schools/${this.$route.params.id}`, this.form)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createSuccessToast("Escuela actualizada.");
+					this.$root.createToast("Escuela actualizada.", "success");
 				})
 				.catch(error => {
 					console.log(error.response);
@@ -387,7 +503,7 @@ export default {
 				.post("schools", this.form)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createSuccessToast("Escuela creada.");
+					this.$root.createToast("Escuela creada.", "success");
 				})
 				.catch(error => {
 					console.log(error.response);

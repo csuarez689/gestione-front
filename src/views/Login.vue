@@ -37,9 +37,6 @@
 				<a href>¿Olvidaste tu contraseña?</a>
 			</div>
 		</form>
-		<b-alert :show="message.length > 0" dismissible variant="danger">{{
-			message
-		}}</b-alert>
 	</div>
 </template>
 
@@ -68,6 +65,7 @@ export default {
 						error.response.status == 401
 							? "Credenciales invalidas."
 							: "Ha ocurrido un error.";
+					this.$root.createToast(this.message, "danger");
 					this.form.password = "";
 				});
 		},

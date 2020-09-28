@@ -36,7 +36,7 @@ const vm = new Vue({
 		},
 	},
 	methods: {
-		createSuccessToast(message) {
+		createToast(message, type) {
 			const h = this.$createElement;
 			const vNodeMessage = h(
 				'p',
@@ -44,9 +44,9 @@ const vm = new Vue({
 				[h('strong', message)]
 			);
 			this.$bvToast.toast([vNodeMessage], {
-				autoHideDelay: 4000,
+				autoHideDelay: 5000,
 				appendToast: true,
-				variant: 'success',
+				variant: type,
 				solid: true,
 				noCloseButton: true,
 				toaster: 'b-toaster-bottom-right',
@@ -84,23 +84,25 @@ axiosApi.interceptors.response.use(
 	},
 	(error) => {
 		const originalRequest = error.config;
-		if (
-			error.response.status === 401 &&
-			!originalRequest._retry &&
-			originalRequest.url != 'auth/refresh'
-		) {
-			originalRequest._retry = true;
-			return vm.$http.post('auth/refresh').then((res) => {
-				vm.$data.token = res.data.access_token;
-				originalRequest.headers[
-					'Authorization'
-				] = `Bearer ${res.data.access_token}`;
-				return vm.$http(originalRequest);
-			});
+		if (error.response.status === 401) {
+			if (
+				!originalRequest._retry &&
+				originalRequest.url != 'auth/refresh' &&
+				originalRequest.url != 'auth/login'
+			) {
+				originalRequest._retry = true;
+				return vm.$http.post('auth/refresh').then((res) => {
+					vm.$data.token = res.data.access_token;
+					originalRequest.headers[
+						'Authorization'
+					] = `Bearer ${res.data.access_token}`;
+					return vm.$http(originalRequest);
+				});
+			}
+			vm.$data.user = '';
+			vm.$data.token = '';
+			if (originalRequest.url != 'auth/login') vm.$router.push('/login');
 		}
-		vm.$data.user = '';
-		vm.$data.token = '';
-		vm.$router.push('/login');
 		return Promise.reject(error);
 	}
 );
