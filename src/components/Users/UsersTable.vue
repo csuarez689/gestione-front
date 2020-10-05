@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- Search box -->
-		<search-box @on-search="search=$event"></search-box>
+		<search-box @on-search="search = $event"></search-box>
 
 		<!-- Table -->
 		<div class="table-wrapper mb-4">
@@ -13,7 +13,10 @@
 						</h2>
 					</div>
 					<div class="col-sm-6">
-						<router-link :to="{name:'NewUser'}" class="btn btn-success">
+						<router-link
+							:to="{ name: 'NewUser' }"
+							class="btn btn-success"
+						>
 							<i class="material-icons">&#xE147;</i>
 							<span>Nuevo Usuario</span>
 						</router-link>
@@ -35,7 +38,6 @@
 				:per-page="pagination.per_page"
 				:filter="search"
 				@sort-changed="pagination.current_page = 1"
-				@filtered="pagination.current_page = 1"
 			>
 				<!-- Table spinner -->
 				<template v-slot:table-busy>
@@ -54,17 +56,23 @@
 							</b-col>
 							<b-col>
 								<b>Última actualización:</b>
-								<span class="ml-1">{{ row.item.updated_at }}</span>
+								<span class="ml-1">{{
+									row.item.updated_at
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row v-if="row.item.school" class="mt-2">
 							<b-col>
 								<b>Escuela:</b>
-								<span class="ml-1">{{ row.item.school.name }}</span>
+								<span class="ml-1">{{
+									row.item.school.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>CUE Escuela:</b>
-								<span class="ml-1">{{ row.item.school.cue }}</span>
+								<span class="ml-1">{{
+									row.item.school.cue
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row v-else class="mt-2">
@@ -77,24 +85,38 @@
 				</template>
 
 				<!-- Estado -->
-				<template v-slot:cell(estado)="row">{{row.item.school ? 'Activo' : 'Inactivo'}}</template>
+				<template v-slot:cell(estado)="row">{{
+					row.item.school ? "Activo" : "Inactivo"
+				}}</template>
 
 				<!-- Custom actions -->
 				<template v-slot:cell(acciones)="row">
 					<a class="view" href @click.prevent="row.toggleDetails">
 						<i class="material-icons" title="Ver">visibility</i>
 					</a>
-					<router-link :to="{name:'EditUser', params:{id:row.item.id}}" class="edit">
+					<router-link
+						:to="{ name: 'EditUser', params: { id: row.item.id } }"
+						class="edit"
+					>
 						<i class="material-icons" href title="Editar">create</i>
 					</router-link>
-					<a class="delete" href @click.prevent="$refs.deleteModal.showModal(row.item)">
+					<a
+						class="delete"
+						href
+						@click.prevent="$refs.deleteModal.showModal(row.item)"
+					>
 						<i class="material-icons" title="Borrar">delete</i>
 					</a>
 				</template>
 
 				<!-- No data for display -->
 				<template v-slot:empty>
-					<p class="font-italic text-center pt-3" style="font-size: medium">No hay usuarios registrados!</p>
+					<p
+						class="font-italic text-center pt-3"
+						style="font-size: medium"
+					>
+						No hay usuarios registrados!
+					</p>
 				</template>
 
 				<!-- Filter nothing for show -->
@@ -102,7 +124,9 @@
 					<p
 						class="font-italic text-center pt-3"
 						style="font-size: medium"
-					>No se han encontrado resultados!</p>
+					>
+						No se han encontrado resultados!
+					</p>
 				</template>
 			</b-table>
 
@@ -117,7 +141,11 @@
 				class="my-0"
 			></b-pagination>
 		</div>
-		<delete-modal modelName="usuario" ref="deleteModal" @on-deleted="$refs.table.refresh()"></delete-modal>
+		<delete-modal
+			modelName="usuario"
+			ref="deleteModal"
+			@on-deleted="$refs.table.refresh()"
+		></delete-modal>
 	</div>
 </template>
 <script>

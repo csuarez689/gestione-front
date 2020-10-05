@@ -121,6 +121,7 @@
 </style>
 
 <script>
+import dataService from "../../services/data-service";
 import FormMixin from "../shared/mixins/formMixin";
 
 export default {
@@ -128,6 +129,7 @@ export default {
 	data() {
 		return {
 			form: {
+				id: "",
 				name: "",
 				last_name: "",
 				dni: "",
@@ -138,9 +140,8 @@ export default {
 	},
 	methods: {
 		update() {
-			this.$http
-
-				.put(`users/${this.$route.params.id}`, this.form)
+			dataService
+				.update("users", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast("Usuario actualizado.", "success");
@@ -151,8 +152,8 @@ export default {
 				});
 		},
 		create() {
-			this.$http
-				.post("users", this.form)
+			dataService
+				.create("users", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast(
@@ -168,14 +169,15 @@ export default {
 	},
 	created() {
 		if (this.isEditMode) {
-			this.$http
-				.get(`users/${this.$route.params.id}`)
-				.then(res => {
-					this.form.name = res.data.name;
-					this.form.last_name = res.data.last_name;
-					this.form.dni = res.data.dni;
-					this.form.email = res.data.email;
-					this.form.phone = res.data.phone;
+			dataService
+				.getOne("users", this.$route.params.id)
+				.then(data => {
+					this.form.id = data.id;
+					this.form.name = data.name;
+					this.form.last_name = data.last_name;
+					this.form.dni = data.dni;
+					this.form.email = data.email;
+					this.form.phone = data.phone;
 				})
 				.catch(error => {
 					this.$route.go(-1);

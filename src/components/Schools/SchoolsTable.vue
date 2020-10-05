@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- Search box -->
-		<search-box @on-search="search=$event"></search-box>
+		<search-box @on-search="search = $event"></search-box>
 
 		<!-- Table -->
 		<div class="table-wrapper mb-4">
@@ -13,7 +13,10 @@
 						</h2>
 					</div>
 					<div class="col-sm-6">
-						<router-link :to="{name:'NewSchool'}" class="btn btn-success">
+						<router-link
+							:to="{ name: 'NewSchool' }"
+							class="btn btn-success"
+						>
 							<i class="material-icons">&#xE147;</i>
 							<span>Nueva Escuela</span>
 						</router-link>
@@ -35,7 +38,6 @@
 				:per-page="pagination.per_page"
 				:filter="search"
 				@sort-changed="pagination.current_page = 1"
-				@filtered="pagination.current_page = 1"
 			>
 				<!-- Table spinner -->
 				<template v-slot:table-busy>
@@ -50,7 +52,9 @@
 						<b-row>
 							<b-col>
 								<b>Localidad:</b>
-								<span class="ml-1">{{ row.item.locality.name }}</span>
+								<span class="ml-1">{{
+									row.item.locality.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Dirección:</b>
@@ -60,7 +64,9 @@
 						<b-row class="mt-2">
 							<b-col>
 								<b>Director:</b>
-								<span class="ml-1">{{ row.item.director }}</span>
+								<span class="ml-1">{{
+									row.item.director
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Correo Electrónico:</b>
@@ -74,53 +80,73 @@
 							</b-col>
 							<b-col>
 								<b>Teléfono Interno:</b>
-								<span class="ml-1">{{ row.item.internal_phone }}</span>
+								<span class="ml-1">{{
+									row.item.internal_phone
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row class="mt-2">
 							<b-col>
 								<b>Sector:</b>
-								<span class="ml-1">{{ row.item.sector.name }}</span>
+								<span class="ml-1">{{
+									row.item.sector.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Tipo:</b>
-								<span class="ml-1">{{ row.item.type.name }}</span>
+								<span class="ml-1">{{
+									row.item.type.name
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row class="mt-2">
 							<b-col>
 								<b>Ámbito:</b>
-								<span class="ml-1">{{ row.item.ambit.name }}</span>
+								<span class="ml-1">{{
+									row.item.ambit.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Jornada:</b>
-								<span class="ml-1">{{ row.item.journey_type.name }}</span>
+								<span class="ml-1">{{
+									row.item.journey_type.name
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row class="mt-2">
 							<b-col>
 								<b>Categoría:</b>
-								<span class="ml-1">{{ row.item.category.name }}</span>
+								<span class="ml-1">{{
+									row.item.category.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Bilingue:</b>
-								<span class="ml-1">{{ row.item.bilingual ? 'Si' : 'No' }}</span>
+								<span class="ml-1">{{
+									row.item.bilingual ? "Si" : "No"
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row class="mt-2">
 							<b-col v-if="row.item.high_school_type">
 								<b>Tipo de Secundario:</b>
-								<span class="ml-1">{{ row.item.high_school_type.name }}</span>
+								<span class="ml-1">{{
+									row.item.high_school_type.name
+								}}</span>
 							</b-col>
 							<b-col>
 								<b>Orientación:</b>
-								<span class="ml-1">{{ row.item.orientation }}</span>
+								<span class="ml-1">{{
+									row.item.orientation
+								}}</span>
 							</b-col>
 						</b-row>
 						<b-row class="mt-2">
 							<b-col>
 								<b>Cantidad de alumnos:</b>
-								<span class="ml-1">{{ row.item.number_students }}</span>
+								<span class="ml-1">{{
+									row.item.number_students
+								}}</span>
 							</b-col>
 						</b-row>
 						<hr />
@@ -129,21 +155,31 @@
 							<b-row class="mt-2">
 								<b-col>
 									<b>Nombre:</b>
-									<span class="ml-1">{{ row.item.user.name+' '+row.item.user.last_name }}</span>
+									<span class="ml-1">{{
+										row.item.user.name +
+											" " +
+											row.item.user.last_name
+									}}</span>
 								</b-col>
 								<b-col>
 									<b>DNI:</b>
-									<span class="ml-1">{{ row.item.user.dni }}</span>
+									<span class="ml-1">{{
+										row.item.user.dni
+									}}</span>
 								</b-col>
 							</b-row>
 							<b-row class="mt-2">
 								<b-col>
 									<b>Correo Electrónico:</b>
-									<span class="ml-1">{{ row.item.user.email }}</span>
+									<span class="ml-1">{{
+										row.item.user.email
+									}}</span>
 								</b-col>
 								<b-col>
 									<b>Teléfono:</b>
-									<span class="ml-1">{{ row.item.user.phone }}</span>
+									<span class="ml-1">{{
+										row.item.user.phone
+									}}</span>
 								</b-col>
 							</b-row>
 						</div>
@@ -152,24 +188,41 @@
 				</template>
 
 				<!-- Estado -->
-				<template v-slot:cell(estado)="row">{{row.item.user ? 'Activa' : 'Inactiva'}}</template>
+				<template v-slot:cell(estado)="row">{{
+					row.item.user ? "Activa" : "Inactiva"
+				}}</template>
 
 				<!-- Custom actions -->
 				<template v-slot:cell(acciones)="row">
 					<a class="view" href @click.prevent="row.toggleDetails">
 						<i class="material-icons" title="Ver">visibility</i>
 					</a>
-					<router-link :to="{name:'EditSchool', params:{id:row.item.id}}" class="edit">
+					<router-link
+						:to="{
+							name: 'EditSchool',
+							params: { id: row.item.id }
+						}"
+						class="edit"
+					>
 						<i class="material-icons" title="Editar">create</i>
 					</router-link>
-					<a class="delete" href @click.prevent="$refs.deleteModal.showModal(row.item)">
+					<a
+						class="delete"
+						href
+						@click.prevent="$refs.deleteModal.showModal(row.item)"
+					>
 						<i class="material-icons" title="Borrar">delete</i>
 					</a>
 				</template>
 
 				<!-- No data for display -->
 				<template v-slot:empty>
-					<p class="font-italic text-center pt-3" style="font-size: medium">No hay registros de escuelas!</p>
+					<p
+						class="font-italic text-center pt-3"
+						style="font-size: medium"
+					>
+						No hay registros de escuelas!
+					</p>
 				</template>
 
 				<!-- Filter nothing for show -->
@@ -177,7 +230,9 @@
 					<p
 						class="font-italic text-center pt-3"
 						style="font-size: medium"
-					>No se han encontrado resultados!</p>
+					>
+						No se han encontrado resultados!
+					</p>
 				</template>
 			</b-table>
 			<!-- Pagination -->
@@ -192,7 +247,11 @@
 			></b-pagination>
 		</div>
 		<!-- Delete Modal -->
-		<delete-modal modelName="escuela" ref="deleteModal" @on-deleted="$refs.table.refresh()"></delete-modal>
+		<delete-modal
+			modelName="escuela"
+			ref="deleteModal"
+			@on-deleted="$refs.table.refresh()"
+		></delete-modal>
 	</div>
 </template>
 <script>

@@ -1,3 +1,5 @@
+import DataService from '../../../services/data-service';
+
 export default {
 	data() {
 		return {
@@ -5,12 +7,7 @@ export default {
 			sortBy: '',
 			direction: 'asc',
 			search: '',
-			pagination: {
-				current_page: 1,
-				total: 0,
-				per_page: 20,
-				last_page: 1,
-			},
+			pagination: {},
 		};
 	},
 	methods: {
@@ -19,14 +16,13 @@ export default {
 				this.sortBy = ctx.sortBy;
 				this.direction = ctx.sortDesc ? 'desc' : 'asc';
 			}
-			return this.$http
-				.get(
-					`${this.endpoint}?direction=${this.direction}&page=${this.pagination.current_page}&per_page=20&search=${ctx.filter}&sort_by=${this.sortBy}`
-				)
-				.then((res) => {
-					console.log(res);
-					this.pagination = res.data.meta;
-					return res.data.data;
+			return DataService.getAll(
+				`${this.endpoint}?direction=${this.direction}&page=${this.pagination.current_page}&per_page=20&search=${ctx.filter}&sort_by=${this.sortBy}`
+			)
+				.then((data) => {
+					console.log(data);
+					this.pagination = data.meta;
+					return data.data;
 				})
 				.catch((error) => {
 					console.log(error);

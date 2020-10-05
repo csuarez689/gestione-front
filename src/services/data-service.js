@@ -1,35 +1,44 @@
 import axios from 'axios';
+import { authHeader } from '../helpers/auth-header';
 
 const API_URL = 'http://localhost:8000/api';
 
 class DataService {
 	getAll(endpoint) {
-		return axios.get(`${API_URL}/${endpoint}`).then((res) => {
-			return res.data;
-		});
+		return axios
+			.get(`${API_URL}/${endpoint}`, { headers: authHeader() })
+			.then((res) => {
+				return res.data;
+			});
 	}
 
 	getOne(endpoint, id) {
-		return axios.get(`${API_URL}/${endpoint}/${id}`).then((res) => {
-			return res.data;
-		});
+		return axios
+			.get(`${API_URL}/${endpoint}/${id}`, { headers: authHeader() })
+			.then((res) => {
+				return res.data;
+			});
 	}
 
-	delete(endpoint, id) {
-		return axios.delete(`${API_URL}/${endpoint}/${id}`).then((res) => {
+	delete(link) {
+		return axios.delete(link, { headers: authHeader() }).then((res) => {
 			return res.data;
 		});
 	}
 
 	create(endpoint, data) {
-		return axios.post(`${API_URL}/${endpoint}`, data).then((res) => {
-			return res.data;
-		});
+		return axios
+			.post(`${API_URL}/${endpoint}`, data, { headers: authHeader() })
+			.then((res) => {
+				return res.data;
+			});
 	}
 
 	update(endpoint, data) {
 		return axios
-			.put(`${API_URL}/${endpoint}/${data.id}`, data)
+			.put(`${API_URL}/${endpoint}/${data.id}`, data, {
+				headers: authHeader(),
+			})
 			.then((res) => {
 				return res.data;
 			});
