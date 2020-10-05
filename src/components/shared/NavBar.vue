@@ -20,7 +20,7 @@
 							<em class="pr-2">{{ userFullName }}</em>
 						</template>
 						<b-dropdown-item to="/profile">Perfil</b-dropdown-item>
-						<b-dropdown-item @click="logOut">Salir</b-dropdown-item>
+						<b-dropdown-item @click="logout">Salir</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 			</b-collapse>
@@ -28,24 +28,24 @@
 	</div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-	props: ["user"],
 	methods: {
-		logOut() {
-			this.$http
-				.post("/auth/logout")
-				.then(() => {
-					this.$root.user = "";
-					this.$root.token = "";
+		logout() {
+			this.$store
+				.dispatch("auth/logout")
+				.then(res => {
 					this.$router.push("/login");
+					this.$root.createToast(res, "success");
 				})
-				.catch(error => console.log(error));
+				.catch(error => {
+					this.$root.createToast(error, "danger");
+				});
 		}
 	},
 	computed: {
-		userFullName() {
-			return this.user.name + " " + this.user.last_name;
-		}
+		...mapGetters("auth", ["userFullName"])
 	}
 };
 </script>

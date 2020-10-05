@@ -3,7 +3,7 @@ export default [
 		path: '/schools',
 		component: () =>
 			import(/* webpackChunkName: "schools"*/ '../views/SchoolsPage'),
-
+		meta: { auth: true },
 		children: [
 			{
 				path: '',

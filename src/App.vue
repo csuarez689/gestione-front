@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<nav-bar v-if="$root.isAuth" :user="$root.user"></nav-bar>
+		<nav-bar v-if="$store.state.auth.status.loggedIn"></nav-bar>
 
 		<b-container>
 			<router-view />
