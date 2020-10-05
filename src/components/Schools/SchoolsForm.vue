@@ -444,6 +444,7 @@
 <script>
 import FormMixin from "../shared/mixins/formMixin";
 import LocationSelect from "../shared/LocationSelect";
+import dataService from "../../services/data-service";
 
 export default {
 	components: { LocationSelect },
@@ -460,6 +461,7 @@ export default {
 			highSchoolTypes: [],
 			users: [],
 			form: {
+				id: "",
 				bilingual: false,
 				name: "",
 				director: "",
@@ -487,44 +489,44 @@ export default {
 			if (this.form.level_id != 3) this.form.high_school_type_id = "";
 		},
 		update() {
-			this.$http
-				.put(`schools/${this.$route.params.id}`, this.form)
+			dataService
+				.update("schools", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast("Escuela actualizada.", "success");
 				})
 				.catch(error => {
-					console.log(error.response);
+					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
 		create() {
-			this.$http
-				.post("schools", this.form)
+			dataService
+				.create("schools", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast("Escuela creada.", "success");
 				})
 				.catch(error => {
-					console.log(error.response);
+					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
 		loadApiFormData() {
-			const getSelects = this.$http.get(
+			const getSelects = dataService.getAll(
 				"formData?include=ambits,sectors,types,levels,categories,journey_types,high_school_types"
 			);
-			const getUsers = this.$http.get("users?sort_by=last_name");
+			const getUsers = dataService.getAll("users?sort_by=last_name");
 			Promise.all([getSelects, getUsers])
 				.then(([selects, users]) => {
-					this.ambits = selects.data.ambits;
-					this.sectors = selects.data.sectors;
-					this.types = selects.data.types;
-					this.levels = selects.data.levels;
-					this.categories = selects.data.categories;
-					this.journeyTypes = selects.data.journey_types;
-					this.highSchoolTypes = selects.data.high_school_types;
-					this.users = users.data;
+					this.ambits = selects.ambits;
+					this.sectors = selects.sectors;
+					this.types = selects.types;
+					this.levels = selects.levels;
+					this.categories = selects.categories;
+					this.journeyTypes = selects.journey_types;
+					this.highSchoolTypes = selects.high_school_types;
+					this.users = users;
 				})
 				.catch(error => {
 					this.$router.go(-1);
@@ -548,38 +550,38 @@ export default {
 	created() {
 		this.loadApiFormData();
 		if (this.isEditMode) {
-			this.$http
-				.get(`schools/${this.$route.params.id}`)
-				.then(res => {
-					this.form.bilingual = res.data.bilingual;
-					this.form.name = res.data.name;
-					this.form.director = res.data.director;
-					this.form.cue = res.data.cue;
-					this.form.number_students = res.data.number_students;
-					this.form.ambit_id = res.data.ambit.id;
-					this.form.sector_id = res.data.sector.id;
-					this.form.level_id = res.data.level.id;
-					this.form.high_school_type_id = res.data.high_school_type
-						? res.data.high_school_type.id
+			dataService
+				.getOne("schools", this.$route.params.id)
+				.then(data => {
+					this.form.id = data.id;
+					this.form.bilingual = data.bilingual;
+					this.form.name = data.name;
+					this.form.director = data.director;
+					this.form.cue = data.cue;
+					this.form.number_students = data.number_students;
+					this.form.ambit_id = data.ambit.id;
+					this.form.sector_id = data.sector.id;
+					this.form.level_id = data.level.id;
+					this.form.high_school_type_id = data.high_school_type
+						? data.high_school_type.id
 						: "";
-					this.form.type_id = res.data.type.id;
-					this.form.category_id = res.data.category.id;
-					this.form.journey_type_id = res.data.journey_type.id;
-					this.form.orientation = res.data.orientation;
-					this.form.phone = res.data.phone;
-					this.form.internal_phone = res.data.internal_phone;
-					this.form.email = res.data.email;
-					this.form.address = res.data.address;
-					this.form.user_id = res.data.user ? res.data.user.id : "";
+					this.form.type_id = data.type.id;
+					this.form.category_id = data.category.id;
+					this.form.journey_type_id = data.journey_type.id;
+					this.form.orientation = data.orientation;
+					this.form.phone = data.phone;
+					this.form.internal_phone = data.internal_phone;
+					this.form.email = data.email;
+					this.form.address = data.address;
+					this.form.user_id = data.user ? data.user.id : "";
 					this.location.province_id =
-						res.data.locality.department.province_id;
-					this.location.department_id =
-						res.data.locality.department.id;
-					this.location.locality_id = res.data.locality.id;
-					this.selectedUrl = res.data._links.self;
+						data.locality.department.province_id;
+					this.location.department_id = data.locality.department.id;
+					this.location.locality_id = data.locality.id;
+					this.selectedUrl = data._links.self;
 				})
 				.catch(error => {
-					this.$route.go(-1);
+					this.$router.go(-1);
 					console.log(error);
 				});
 		}

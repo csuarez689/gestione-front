@@ -55,6 +55,7 @@
 	</b-row>
 </template>
 <script>
+import dataService from "../../services/data-service";
 export default {
 	props: ["value"],
 	data() {
@@ -73,23 +74,23 @@ export default {
 			});
 		},
 		getProvinces() {
-			this.$http
-				.get("provinces")
-				.then(res => {
-					this.provinces = res.data;
+			dataService
+				.getAll("provinces")
+				.then(data => {
+					this.provinces = data;
 				})
 				.catch(error => console.log(error));
 		},
 		getDepartments() {
-			this.$http
-				.get(`provinces/${this.value.province_id}/departments`)
-				.then(res => (this.departments = res.data))
+			dataService
+				.getAll(`provinces/${this.value.province_id}/departments`)
+				.then(data => (this.departments = data))
 				.catch(error => console.log(error));
 		},
 		getLocalities() {
-			this.$http
-				.get(`departments/${this.value.department_id}/localities`)
-				.then(res => (this.localities = res.data))
+			dataService
+				.getAll(`departments/${this.value.department_id}/localities`)
+				.then(data => (this.localities = data))
 				.catch(error => console.log(error));
 		}
 	},

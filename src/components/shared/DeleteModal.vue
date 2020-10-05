@@ -45,12 +45,7 @@ export default {
 			dataService
 				.delete(this.url)
 				.then(() => {
-					this.$root.createToast(
-						`${this.$options.filters.capitalize(
-							this.modelName
-						)} elimnad${this.modelName.substr(-1)}`,
-						"success"
-					);
+					this.$root.createToast("Registro eliminado.", "success");
 					this.$emit("on-deleted");
 				})
 				.catch(error => console.log(error))
