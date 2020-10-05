@@ -6,10 +6,15 @@
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
 			<b-collapse id="nav-collapse" is-nav>
-				<b-navbar-nav>
+				<b-navbar-nav v-if="$store.state.auth.user.isAdmin">
 					<b-nav-item to="/users"> Usuarios </b-nav-item>
 					<b-nav-item to="/schools"> Escuelas </b-nav-item>
 					<b-nav-item to="/teachers"> Docentes </b-nav-item>
+				</b-navbar-nav>
+				<b-navbar-nav v-else>
+					<b-nav-item to="/teachingPlant">
+						Planta Docente
+					</b-nav-item>
 				</b-navbar-nav>
 
 				<!-- Right aligned nav items -->
@@ -47,5 +52,8 @@ export default {
 	computed: {
 		...mapGetters("auth", ["userFullName"])
 	}
+	// created(){
+	// 	this.$store.state.auth.
+	// }
 };
 </script>
