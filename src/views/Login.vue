@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
 	data() {
 		return {
@@ -51,27 +52,24 @@ export default {
 			message: ""
 		};
 	},
+	computed: {
+		...mapGetters("auth", ["redirectUrl"])
+	},
 	methods: {
-		login() {
-			this.$http
-				.post("auth/login", this.form)
-				.then(res => {
-					this.$root.user = res.data.user;
-					this.$root.token = res.data.access_token;
-					this.$router.push("/users");
-				})
-				.catch(error => {
-					this.message =
-						error.response.status == 401
-							? "Credenciales invalidas."
-							: "Ha ocurrido un error.";
-					this.$root.createToast(this.message, "danger");
-					this.form.password = "";
-				});
-		},
 		sendForm() {
 			if (this.$refs.form.checkValidity()) this.login();
 			else this.$refs.form.reportValidity();
+		},
+		login() {
+			this.$store
+				.dispatch("auth/login", this.form)
+				.then(() => {
+					this.$router.push(this.redirectUrl);
+				})
+				.catch(error => {
+					this.form.password = "";
+					this.$root.createToast(error, "danger");
+				});
 		}
 	}
 };
