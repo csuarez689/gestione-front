@@ -34,7 +34,7 @@ export const auth = {
 					return Promise.resolve(data.message);
 				},
 				(error) => {
-					Promise.reject(error.response.data.message);
+					return Promise.reject(error.response.data.message);
 				}
 			);
 		},

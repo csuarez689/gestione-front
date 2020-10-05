@@ -38,7 +38,6 @@
 				:per-page="pagination.per_page"
 				:filter="search"
 				@sort-changed="pagination.current_page = 1"
-				@filtered="pagination.current_page = 1"
 			>
 				<!-- Table spinner -->
 				<template v-slot:table-busy>

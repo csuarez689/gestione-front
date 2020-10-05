@@ -28,6 +28,7 @@
 	</b-modal>
 </template>
 <script>
+import dataService from "../../services/data-service";
 export default {
 	props: ["modelName"],
 	data() {
@@ -41,7 +42,7 @@ export default {
 			if (this.url) this.$refs.modal.show();
 		},
 		deleteItem() {
-			this.$http
+			dataService
 				.delete(this.url)
 				.then(() => {
 					this.$root.createToast(

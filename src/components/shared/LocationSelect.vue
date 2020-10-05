@@ -2,9 +2,19 @@
 	<b-row>
 		<b-col sm="12" md="4" class="form-group">
 			<label>Provincia</label>
-			<select required class="form-control" v-model="value.province_id" @change="resetSelects()">
+			<select
+				required
+				class="form-control"
+				v-model="value.province_id"
+				@change="resetSelects()"
+			>
 				<option value hidden></option>
-				<option v-for="province in provinces" :key="province.id" :value="province.id">{{province.name}}</option>
+				<option
+					v-for="province in provinces"
+					:key="province.id"
+					:value="province.id"
+					>{{ province.name }}</option
+				>
 			</select>
 		</b-col>
 		<b-col sm="12" md="4" class="form-group">
@@ -20,7 +30,8 @@
 					v-for="department in departments"
 					:key="department.id"
 					:value="department.id"
-				>{{department.name}}</option>
+					>{{ department.name }}</option
+				>
 			</select>
 		</b-col>
 		<b-col sm="12" md="4" class="form-group">
@@ -30,10 +41,15 @@
 				class="form-control"
 				v-model="value.locality_id"
 				:disabled="!value.department_id"
-				@change="$emit('input',this.value)"
+				@change="$emit('input', value)"
 			>
 				<option hidden></option>
-				<option v-for="locality in localities" :key="locality.id" :value="locality.id">{{locality.name}}</option>
+				<option
+					v-for="locality in localities"
+					:key="locality.id"
+					:value="locality.id"
+					>{{ locality.name }}</option
+				>
 			</select>
 		</b-col>
 	</b-row>
