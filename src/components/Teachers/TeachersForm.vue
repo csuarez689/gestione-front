@@ -110,6 +110,7 @@
 <script>
 import FormMixin from "../shared/mixins/formMixin";
 import LocationSelect from "../shared/LocationSelect";
+import dataService from "../../services/data-service";
 
 export default {
 	mixins: [FormMixin],
@@ -118,6 +119,7 @@ export default {
 		return {
 			location: { province_id: "", department_id: "", locality_id: "" },
 			form: {
+				id: "",
 				name: "",
 				last_name: "",
 				cuil: "",
@@ -128,45 +130,45 @@ export default {
 	},
 	methods: {
 		update() {
-			this.$http
-				.put(`teachers/${this.$route.params.id}`, this.form)
+			dataService
+				.update("teachers", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast("Docente actualizado.", "success");
 				})
 				.catch(error => {
-					console.log(error.response);
+					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
 		create() {
-			this.$http
-				.post("teachers", this.form)
+			dataService
+				.create("teachers", this.form)
 				.then(() => {
 					this.$router.go(-1);
 					this.$root.createToast("Docente creado.", "success");
 				})
 				.catch(error => {
-					console.log(error.response);
+					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		}
 	},
 	created() {
 		if (this.isEditMode) {
-			this.$http
-				.get(`teachers/${this.$route.params.id}`)
-				.then(res => {
-					this.form.name = res.data.name;
-					this.form.last_name = res.data.last_name;
-					this.form.cuil = res.data.cuil;
-					this.form.gender = res.data.gender;
+			dataService
+				.getOne("teachers", this.$route.params.id)
+				.then(data => {
+					this.form.id = data.id;
+					this.form.name = data.name;
+					this.form.last_name = data.last_name;
+					this.form.cuil = data.cuil;
+					this.form.gender = data.gender;
 					this.location.province_id =
-						res.data.locality.department.province_id;
-					this.location.department_id =
-						res.data.locality.department.id;
-					this.location.locality_id = res.data.locality.id;
-					this.selectedUrl = res.data._links.self;
+						data.locality.department.province_id;
+					this.location.department_id = data.locality.department.id;
+					this.location.locality_id = data.locality.id;
+					this.selectedUrl = data._links.self;
 				})
 				.catch(error => {
 					this.$route.go(-1);

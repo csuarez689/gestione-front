@@ -8,27 +8,23 @@ class AuthService {
 		return axios.post(`${API_URL}/login`, credentials).then((res) => {
 			localStorage.setItem('user', JSON.stringify(res.data.user));
 			localStorage.setItem('token', res.data.access_token);
-			axios.defaults.headers.common[
-				'Authorization'
-			] = `Bearer ${res.data.access_token}`;
 			return res.data;
 		});
 	}
 
 	logout() {
 		return axios
-			.post(`${API_URL}/logout`, { headers: authHeader() })
+			.post(`${API_URL}/logout`, null, { headers: authHeader() })
 			.then((res) => {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
-				delete axios.defaults.headers['Authorization'];
 				return res.data;
 			});
 	}
 
 	refresh() {
 		return axios
-			.post(`${API_URL}/refresh`, { headers: authHeader() })
+			.post(`${API_URL}/refresh`, null, { headers: authHeader() })
 			.then((res) => {
 				localStorage.setItem('token', res.data.access_token);
 				axios.defaults.headers.common[
