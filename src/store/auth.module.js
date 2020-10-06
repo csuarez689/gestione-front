@@ -67,5 +67,13 @@ export const auth = {
 		userFullName: (state) => {
 			return `${state.user.name} ${state.user.last_name}`;
 		},
+		hasPermission: (state) => (role) => {
+			console.log(role);
+			console.log(state.user.isAdmin);
+			if (state.status.loggedIn) {
+				return state.user.isAdmin && role ? true : false;
+			}
+			return false;
+		},
 	},
 };
