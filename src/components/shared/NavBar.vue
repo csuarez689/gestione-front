@@ -1,18 +1,40 @@
 <template>
 	<div>
-		<b-navbar toggleable="lg" type="dark" variant="primary">
-			<b-navbar-brand href="#">GestionE</b-navbar-brand>
+		<b-navbar toggleable="lg" type="dark">
+			<b-navbar-brand href="#" class="mr-5">GestionE</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
 			<b-collapse id="nav-collapse" is-nav>
 				<b-navbar-nav v-if="$store.state.auth.user.isAdmin">
-					<b-nav-item to="/users"> Usuarios </b-nav-item>
-					<b-nav-item to="/schools"> Escuelas </b-nav-item>
-					<b-nav-item to="/teachers"> Docentes </b-nav-item>
+					<b-nav-item
+						to="/users"
+						active-class="item-active"
+						class="nav-item-link"
+					>
+						Usuarios
+					</b-nav-item>
+					<b-nav-item
+						to="/schools"
+						active-class="item-active"
+						class="nav-item-link"
+					>
+						Escuelas
+					</b-nav-item>
+					<b-nav-item
+						to="/teachers"
+						active-class="item-active"
+						class="nav-item-link"
+					>
+						Docentes
+					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav v-else>
-					<b-nav-item to="/teachingPlant">
+					<b-nav-item
+						to="/teachingPlant"
+						active-class="item-active"
+						class="nav-item-link"
+					>
 						Planta Docente
 					</b-nav-item>
 				</b-navbar-nav>
@@ -57,3 +79,22 @@ export default {
 	// }
 };
 </script>
+<style lang="scss">
+.navbar {
+	background: #365070;
+
+	.navbar-brand {
+		font-style: italic;
+		opacity: 0.8;
+		font-size: 1.6em;
+		color: #9ca9b8 !important;
+	}
+	.nav-item-link {
+		font-size: 1.1em;
+	}
+}
+.item-active {
+	color: white !important;
+	font-weight: 500;
+}
+</style>
