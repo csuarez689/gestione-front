@@ -2,8 +2,8 @@ import AuthService from '../services/auth-service';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
-	? { status: { loggedIn: true }, user }
-	: { status: { loggedIn: false }, user: null };
+	? { loggedIn: true, user }
+	: { loggedIn: false, user: null };
 
 export const auth = {
 	namespaced: true,
@@ -42,24 +42,24 @@ export const auth = {
 
 	mutations: {
 		loginSuccess(state, user) {
-			state.status.loggedIn = true;
+			state.loggedIn = true;
 			state.user = user;
 		},
 
 		loginFailure(state) {
-			state.status.loggedIn = false;
+			state.loggedIn = false;
 			state.user = null;
 		},
 
 		logout(state) {
-			state.status.loggedIn = false;
+			state.loggedIn = false;
 			state.user = null;
 		},
 	},
 
 	getters: {
 		redirectUrl: (state) => {
-			if (state.status.loggedIn) {
+			if (state.loggedIn) {
 				return state.user.isAdmin ? '/users' : '/teachingPlant';
 			}
 			return '/login';
@@ -67,13 +67,8 @@ export const auth = {
 		userFullName: (state) => {
 			return `${state.user.name} ${state.user.last_name}`;
 		},
-		hasPermission: (state) => (role) => {
-			console.log(role);
-			console.log(state.user.isAdmin);
-			if (state.status.loggedIn) {
-				return state.user.isAdmin && role ? true : false;
-			}
-			return false;
+		userRole: (state) => {
+			return state.user.isAdmin;
 		},
 	},
 };

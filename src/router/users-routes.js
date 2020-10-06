@@ -1,16 +1,27 @@
+import store from '../store/index';
+
 export default [
 	{
 		path: '/users',
 		component: () =>
-			import(/* webpackChunkName: "users"*/ '../views/UsersPage'),
-		meta: { admin: true },
+			import(
+				/* webpackChunkName: "layout"*/ '../views/GeneralLayout.vue'
+			),
+		beforeEnter: (to, from, next) => {
+			if (
+				store.state.auth.loggedIn &&
+				store.getters['auth/userRole'] == 1
+			)
+				next();
+			else next(store.getters['auth/redirectUrl']);
+		},
 		children: [
 			{
 				path: '',
 				name: 'Users',
 				component: () =>
 					import(
-						/* webpackChunkName: "users"*/ '../components/Users/UsersTable'
+						/* webpackChunkName: "users"*/ '../components/Users/UsersTable.vue'
 					),
 			},
 			{
@@ -18,7 +29,7 @@ export default [
 				name: 'NewUser',
 				component: () =>
 					import(
-						/* webpackChunkName: "users"*/ '../components/Users/UsersForm'
+						/* webpackChunkName: "users"*/ '../components/Users/UsersForm.vue'
 					),
 			},
 			{
@@ -26,7 +37,7 @@ export default [
 				name: 'EditUser',
 				component: () =>
 					import(
-						/* webpackChunkName: "users"*/ '../components/Users/UsersForm'
+						/* webpackChunkName: "users"*/ '../components/Users/UsersForm.vue'
 					),
 			},
 		],

@@ -1,16 +1,27 @@
+import store from '../store/index';
+
 export default [
 	{
 		path: '/schools',
 		component: () =>
-			import(/* webpackChunkName: "schools"*/ '../views/SchoolsPage'),
-		meta: { admin: false },
+			import(
+				/* webpackChunkName: "layout"*/ '../views/GeneralLayout.vue'
+			),
+		beforeEnter: (to, from, next) => {
+			if (
+				store.state.auth.loggedIn &&
+				store.getters['auth/userRole'] == 1
+			)
+				next();
+			else next(store.getters['auth/redirectUrl']);
+		},
 		children: [
 			{
 				path: '',
 				name: 'Schools',
 				component: () =>
 					import(
-						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsTable'
+						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsTable.vue'
 					),
 			},
 			{
@@ -18,7 +29,7 @@ export default [
 				name: 'NewSchool',
 				component: () =>
 					import(
-						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsForm'
+						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsForm.vue'
 					),
 			},
 			{
@@ -26,7 +37,7 @@ export default [
 				name: 'EditSchool',
 				component: () =>
 					import(
-						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsForm'
+						/* webpackChunkName: "schools"*/ '../components/Schools/SchoolsForm.vue'
 					),
 			},
 		],

@@ -1,18 +1,9 @@
 <template>
 	<div id="app">
-		<nav-bar v-if="$store.state.auth.status.loggedIn"></nav-bar>
-
-		<b-container>
-			<router-view />
-		</b-container>
+		<router-view />
 	</div>
 </template>
 <script>
-import NavBar from "./components/shared/NavBar";
-
-export default {
-	components: { NavBar }
-};
 </script>
 <style lang="scss">
 //Tables styles
