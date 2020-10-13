@@ -75,7 +75,10 @@
 						</div>
 					</b-col>
 				</b-row>
-				<location-select v-model="location"></location-select>
+				<location-select
+					v-model="location"
+					:mdSize="12"
+				></location-select>
 			</form>
 		</b-card-body>
 		<template v-slot:footer>
@@ -98,14 +101,6 @@
 		</template>
 	</b-card>
 </template>
-
-<style lang="scss" scoped>
-.card {
-	margin: auto;
-	max-width: 45rem;
-	min-width: 20rem;
-}
-</style>
 
 <script>
 import FormMixin from "../shared/mixins/formMixin";
@@ -183,3 +178,10 @@ export default {
 	}
 };
 </script>
+<style lang="scss" scoped>
+.card {
+	margin: auto;
+	max-width: 30rem;
+	min-width: 34rem;
+}
+</style>

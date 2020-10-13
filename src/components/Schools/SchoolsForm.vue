@@ -9,7 +9,7 @@
 		<b-card-body>
 			<form ref="form">
 				<b-row>
-					<b-col sm="12" md="6" class="form-group">
+					<b-col sm="12" md="7" class="form-group">
 						<label>Nombre</label>
 						<input
 							type="text"
@@ -25,7 +25,7 @@
 							{{ getError("name") }}
 						</div>
 					</b-col>
-					<b-col sm="12" md="6" class="form-group">
+					<b-col sm="12" md="5" class="form-group">
 						<label>Director</label>
 						<input
 							type="text"
@@ -46,7 +46,7 @@
 					</b-col>
 				</b-row>
 				<b-row>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="3" class="form-group">
 						<label>CUE</label>
 						<input
 							type="text"
@@ -62,7 +62,7 @@
 							{{ getError("cue") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="3" class="form-group">
 						<label>Estudiantes</label>
 						<input
 							type="number"
@@ -72,7 +72,7 @@
 								'is-invalid': hasError('number_students')
 							}"
 							min="20"
-							max="10000"
+							max="2000"
 							v-model="form.number_students"
 						/>
 						<div
@@ -82,12 +82,11 @@
 							{{ getError("number_students") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="3" class="form-group">
 						<label>Ámbito</label>
 						<select
 							required
 							class="form-control"
-							name="ambit_id"
 							:class="{ 'is-invalid': hasError('ambit_id') }"
 							v-model="form.ambit_id"
 						>
@@ -106,9 +105,7 @@
 							{{ getError("ambit_id") }}
 						</div>
 					</b-col>
-				</b-row>
-				<b-row>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="3" class="form-group">
 						<label>Sector</label>
 						<select
 							required
@@ -132,7 +129,9 @@
 							{{ getError("sector_id") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+				</b-row>
+				<b-row>
+					<b-col sm="6" md="3" class="form-group">
 						<label>Nivel</label>
 						<select
 							required
@@ -157,7 +156,7 @@
 							{{ getError("level_id") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="3" class="form-group">
 						<label>Tipo Secundario</label>
 						<select
 							:required="form.level_id == 3"
@@ -184,8 +183,6 @@
 							{{ getError("high_school_type_id") }}
 						</div>
 					</b-col>
-				</b-row>
-				<b-row>
 					<b-col sm="6" md="4" class="form-group">
 						<label>Tipo</label>
 						<select
@@ -210,7 +207,7 @@
 							{{ getError("type_id") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+					<b-col sm="6" md="2" class="form-group">
 						<label>Categoría</label>
 						<select
 							required
@@ -234,12 +231,21 @@
 							{{ getError("category_id") }}
 						</div>
 					</b-col>
-					<b-col sm="6" md="4" class="form-group">
+				</b-row>
+				<b-row>
+					<b-col sm="6" md="2" class="pr-0">
+						<b-form-group label="Bilingue">
+							<b-form-radio-group v-model="form.bilingual">
+								<b-form-radio value="true">Si</b-form-radio>
+								<b-form-radio value="false">No</b-form-radio>
+							</b-form-radio-group>
+						</b-form-group>
+					</b-col>
+					<b-col sm="6" md="3" class="form-group">
 						<label>Jornada</label>
 						<select
 							required
 							class="form-control"
-							name="journey_type_id"
 							:class="{
 								'is-invalid': hasError('journey_type_id')
 							}"
@@ -260,20 +266,8 @@
 							{{ getError("journey_type_id") }}
 						</div>
 					</b-col>
-				</b-row>
-				<b-row>
-					<b-col sm="3">
-						<b-form-group label="Bilingue">
-							<b-form-radio-group
-								name="bilingual"
-								v-model="form.bilingual"
-							>
-								<b-form-radio value="true">Si</b-form-radio>
-								<b-form-radio value="false">No</b-form-radio>
-							</b-form-radio-group>
-						</b-form-group>
-					</b-col>
-					<b-col sm="9" class="form-group">
+
+					<b-col sm="12" md="7" class="form-group">
 						<label>Orientación</label>
 						<input
 							type="text"
@@ -589,3 +583,10 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.card {
+	margin: auto;
+	max-width: 50rem;
+	min-width: 40rem;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
 	<b-row>
-		<b-col sm="12" md="4" class="form-group">
+		<b-col sm="12" :md="mdSize ? mdSize : 3" class="form-group">
 			<label>Provincia</label>
 			<select
 				required
@@ -17,7 +17,7 @@
 				>
 			</select>
 		</b-col>
-		<b-col sm="12" md="4" class="form-group">
+		<b-col sm="12" :md="mdSize ? mdSize : 4" class="form-group">
 			<label>Departamento</label>
 			<select
 				required
@@ -34,7 +34,7 @@
 				>
 			</select>
 		</b-col>
-		<b-col sm="12" md="4" class="form-group">
+		<b-col sm="12" :md="mdSize ? mdSize : 5" class="form-group">
 			<label>Localidad</label>
 			<select
 				required
@@ -57,7 +57,7 @@
 <script>
 import dataService from "../../services/data-service";
 export default {
-	props: ["value"],
+	props: ["value", "mdSize"],
 	data() {
 		return {
 			provinces: [],

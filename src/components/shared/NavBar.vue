@@ -28,13 +28,6 @@
 					>
 						Docentes
 					</b-nav-item>
-					<b-nav-item
-						to="/teachingPlant"
-						active-class="item-active"
-						class="nav-item-link"
-					>
-						Planta Docente
-					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav v-else>
 					<b-nav-item

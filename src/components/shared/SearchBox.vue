@@ -4,7 +4,7 @@
 			<b-col md="6" text-center>
 				<b-input-group>
 					<b-form-input
-						v-model="text"
+						v-model="search"
 						type="search"
 						ref="searchInput"
 						@keypress.enter="onSearch()"
@@ -24,11 +24,11 @@
 <script>
 export default {
 	data() {
-		return { text: "" };
+		return { search: "" };
 	},
 	methods: {
 		onSearch() {
-			this.$emit("on-search", this.text);
+			this.$emit("on-search", { search: this.search });
 		}
 	}
 };
