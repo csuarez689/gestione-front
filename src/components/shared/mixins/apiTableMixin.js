@@ -7,7 +7,7 @@ export default {
 			sortBy: '',
 			direction: 'asc',
 			search: '',
-			pagination: {},
+			pagination: { current_page: 1 },
 		};
 	},
 	methods: {
@@ -16,9 +16,14 @@ export default {
 				this.sortBy = ctx.sortBy;
 				this.direction = ctx.sortDesc ? 'desc' : 'asc';
 			}
-			return DataService.getAll(
-				`${this.endpoint}?direction=${this.direction}&page=${this.pagination.current_page}&per_page=20&search=${ctx.filter}&sort_by=${this.sortBy}`
-			)
+			let params = {
+				direction: this.direction,
+				page: this.pagination.current_page,
+				per_page: 20,
+				sort_by: this.sortBy,
+				...ctx.filter,
+			};
+			return DataService.getAll(this.endpoint, params)
 				.then((data) => {
 					console.log(data);
 					this.pagination = data.meta;

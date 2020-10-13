@@ -5,9 +5,7 @@ export default [
 		path: '/teachingPlant',
 		component: () =>
 			import(
-				import(
-					/* webpackChunkName: "layout"*/ '../views/GeneralLayout.vue'
-				)
+				/* webpackChunkName: "layout"*/ '../views/GeneralLayout.vue'
 			),
 		beforeEnter: (to, from, next) => {
 			if (

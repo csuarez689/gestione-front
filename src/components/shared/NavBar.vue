@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<b-navbar toggleable="lg" type="dark">
+		<b-navbar toggleable="sm" type="dark">
 			<b-navbar-brand href="#" class="mr-5">GestionE</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -28,13 +28,6 @@
 					>
 						Docentes
 					</b-nav-item>
-					<b-nav-item
-						to="/teachingPlant"
-						active-class="item-active"
-						class="nav-item-link"
-					>
-						Planta Docente
-					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav v-else>
 					<b-nav-item
@@ -43,6 +36,13 @@
 						class="nav-item-link"
 					>
 						Planta Docente
+					</b-nav-item>
+					<b-nav-item
+						to="/teachers"
+						active-class="item-active"
+						class="nav-item-link"
+					>
+						Docentes
 					</b-nav-item>
 				</b-navbar-nav>
 

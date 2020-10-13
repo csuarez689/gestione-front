@@ -4,9 +4,12 @@ import { authHeader } from '../helpers/auth-header';
 const API_URL = 'http://localhost:8000/api';
 
 class DataService {
-	getAll(endpoint) {
+	getAll(endpoint, params = '') {
 		return axios
-			.get(`${API_URL}/${endpoint}`, { headers: authHeader() })
+			.get(`${API_URL}/${endpoint}`, {
+				params: params,
+				headers: authHeader(),
+			})
 			.then((res) => {
 				return res.data;
 			});

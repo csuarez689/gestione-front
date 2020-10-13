@@ -11,7 +11,7 @@
 		</template>
 		<template v-slot:default>
 			<p class="text-center">
-				¿Está seguro que desea borrar el {{ modelName }}?
+				¿Está seguro que desea borrar el registro?
 			</p>
 			<p class="text-danger text-center">
 				<small>Los cambios son permanentes</small>

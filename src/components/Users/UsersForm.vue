@@ -73,22 +73,24 @@
 						</div>
 					</b-col>
 				</b-row>
-				<div class="form-group">
-					<label>Correo electrónico</label>
-					<input
-						type="email"
-						name="email"
-						class="form-control"
-						:class="{ 'is-invalid': hasError('email') }"
-						required
-						maxlength="100"
-						v-model="form.email"
-						:disabled="isEditMode"
-					/>
-					<div class="invalid-feedback" v-if="hasError('email')">
-						{{ getError("email") }}
-					</div>
-				</div>
+				<b-row>
+					<b-col sm="12" md="12" class="form-group">
+						<label>Correo electrónico</label>
+						<input
+							type="email"
+							name="email"
+							class="form-control"
+							:class="{ 'is-invalid': hasError('email') }"
+							required
+							maxlength="100"
+							v-model="form.email"
+							:disabled="isEditMode"
+						/>
+						<div class="invalid-feedback" v-if="hasError('email')">
+							{{ getError("email") }}
+						</div>
+					</b-col>
+				</b-row>
 			</form>
 		</b-card-body>
 		<template v-slot:footer>
@@ -111,14 +113,6 @@
 		</template>
 	</b-card>
 </template>
-
-<style lang="scss" scoped>
-.card {
-	margin: auto;
-	max-width: 40rem;
-	min-width: 20rem;
-}
-</style>
 
 <script>
 import dataService from "../../services/data-service";
@@ -187,3 +181,11 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+.card {
+	margin: auto;
+	max-width: 30rem;
+	min-width: 30rem;
+}
+</style>
