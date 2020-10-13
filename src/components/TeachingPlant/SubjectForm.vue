@@ -92,6 +92,17 @@
 				</b-row>
 
 				<hr />
+				<b-row
+					><b-button
+						variant="success"
+						size="sm"
+						class="ml-auto"
+						:to="{ name: 'NewTeacher' }"
+					>
+						<i class="material-icons">&#xE147;</i> Nuevo
+						Docente</b-button
+					></b-row
+				>
 				<b-row>
 					<b-col sm="12" class="form-group">
 						<label>Nombre Docente</label>
@@ -150,10 +161,10 @@
 							type="text"
 							class="form-control"
 							:class="{ 'is-invalid': hasError('teacher_title') }"
-							required
 							minlength="10"
 							maxlength="150"
 							v-model="form.teacher_title"
+							:disabled="!form.teacher_id"
 						/>
 						<div
 							class="invalid-feedback"
@@ -173,6 +184,7 @@
 								'is-invalid': hasError('teacher_category_title')
 							}"
 							v-model="form.teacher_category_title"
+							:disabled="!form.teacher_id"
 						>
 							<option value hidden></option>
 							<option value="DOCENTE">DOCENTE</option>
@@ -191,6 +203,7 @@
 							class="form-control"
 							:class="{ 'is-invalid': hasError('job_state_id') }"
 							v-model="form.job_state_id"
+							:disabled="!form.teacher_id"
 						>
 							<option value hidden></option>
 							<option
@@ -256,10 +269,10 @@ export default {
 	methods: {
 		update() {
 			dataService
-				.update("schools", this.form)
+				.update("teachingPlant", this.form)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createToast("Escuela actualizada.", "success");
+					this.$root.createToast("Materia actualizada.", "success");
 				})
 				.catch(error => {
 					console.log(error);
@@ -268,10 +281,13 @@ export default {
 		},
 		create() {
 			dataService
-				.create("schools", this.form)
+				.create(
+					`schools/${this.$store.state.auth.user.school_id}/teachingPlant`,
+					this.form
+				)
 				.then(() => {
 					this.$router.go(-1);
-					this.$root.createToast("Escuela creada.", "success");
+					this.$root.createToast("Materia creada.", "success");
 				})
 				.catch(error => {
 					console.log(error);
@@ -279,23 +295,35 @@ export default {
 				});
 		},
 		loadApiFormData() {
-			const getSelects = dataService.getAll(
-				"formData?include=job_states"
-			);
-			const getTeachers = dataService.getAll(
-				"teachers?sort_by=last_name"
-			);
-			Promise.all([getTeachers, getSelects])
-				.then(([teachers, selects]) => {
-					this.teachers = teachers;
-					this.job_states = selects.job_states;
-					// this.sectors = selects.sectors;
-					// this.types = selects.types;
-					// this.levels = selects.levels;
-					// this.categories = selects.categories;
-					// this.journeyTypes = selects.journey_types;
-					// this.highSchoolTypes = selects.high_school_types;
-					// this.users = users;
+			let promises = [];
+			promises.push(dataService.getAll("formData?include=job_states"));
+			promises.push(dataService.getAll("teachers?sort_by=last_name"));
+			if (this.isEditMode) {
+				promises.push(
+					dataService.getOne("teachingPlant", this.$route.params.id)
+				);
+			}
+
+			Promise.all(promises)
+				.then(res => {
+					this.job_states = res[0].job_states;
+					this.teachers = res[1];
+					if (this.isEditMode) {
+						this.form.id = res[2].id;
+						this.form.year = res[2].year;
+						this.form.division = res[2].division;
+						this.form.subject = res[2].subject;
+						this.form.monthly_hours = res[2].monthly_hours;
+						this.form.teacher_id = res[2].teacher
+							? res[2].teacher.id
+							: null;
+						this.form.teacher_title = res[2].teacher_title;
+						this.form.teacher_category_title =
+							res[2].teacher_category_title;
+						this.form.job_state_id = res[2].job_state
+							? res[2].job_state.id
+							: null;
+					}
 				})
 				.catch(error => {
 					this.$router.go(-1);
@@ -317,44 +345,17 @@ export default {
 			});
 		}
 	},
+	watch: {
+		"form.teacher_id"(value) {
+			if (!value) {
+				this.form.teacher_title = null;
+				this.form.teacher_category_title = null;
+				this.form.job_state_id = null;
+			}
+		}
+	},
 	created() {
 		this.loadApiFormData();
-		if (this.isEditMode) {
-			dataService
-				.getOne("schools", this.$route.params.id)
-				.then(() => {
-					// this.form.id = data.id;
-					// this.form.bilingual = data.bilingual;
-					// this.form.name = data.name;
-					// this.form.director = data.director;
-					// this.form.cue = data.cue;
-					// this.form.number_students = data.number_students;
-					// this.form.ambit_id = data.ambit.id;
-					// this.form.sector_id = data.sector.id;
-					// this.form.level_id = data.level.id;
-					// this.form.high_school_type_id = data.high_school_type
-					// 	? data.high_school_type.id
-					// 	: "";
-					// this.form.type_id = data.type.id;
-					// this.form.category_id = data.category.id;
-					// this.form.journey_type_id = data.journey_type.id;
-					// this.form.orientation = data.orientation;
-					// this.form.phone = data.phone;
-					// this.form.internal_phone = data.internal_phone;
-					// this.form.email = data.email;
-					// this.form.address = data.address;
-					// this.form.user_id = data.user ? data.user.id : "";
-					// this.location.province_id =
-					// 	data.locality.department.province_id;
-					// this.location.department_id = data.locality.department.id;
-					// this.location.locality_id = data.locality.id;
-					// this.selectedUrl = data._links.self;
-				})
-				.catch(error => {
-					this.$router.go(-1);
-					console.log(error);
-				});
-		}
 	}
 };
 </script>

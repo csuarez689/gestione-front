@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-row align-h="center" class="my-4">
-			<b-col xs="10" md="10" text-center class="m-0 p-0">
+			<b-col xs="12" md="8" text-center class="m-0 p-0">
 				<b-input-group>
 					<b-form-input
 						v-model="search"
@@ -64,6 +64,6 @@ export default {
 </script>
 <style lang="scss">
 .search {
-	width: 30vw !important;
+	width: 25vw !important;
 }
 </style>

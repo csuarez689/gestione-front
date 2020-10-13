@@ -20,7 +20,7 @@ export default {
 				direction: this.direction,
 				page: this.pagination.current_page,
 				per_page: 20,
-				sortBy: this.sortBy,
+				sort_by: this.sortBy,
 				...ctx.filter,
 			};
 			return DataService.getAll(this.endpoint, params)

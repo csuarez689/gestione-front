@@ -8,11 +8,7 @@ export default [
 				/* webpackChunkName: "layout"*/ '../views/GeneralLayout.vue'
 			),
 		beforeEnter: (to, from, next) => {
-			if (
-				store.state.auth.loggedIn &&
-				store.getters['auth/userRole'] == 1
-			)
-				next();
+			if (store.state.auth.loggedIn) next();
 			else next(store.getters['auth/redirectUrl']);
 		},
 		children: [
