@@ -174,7 +174,7 @@
 				<!-- Pagination -->
 				<b-pagination
 					align="right"
-					v-if="pagination.last_page > 1"
+					v-if="pagination.last_page > 1 && !isBusy"
 					v-model="pagination.current_page"
 					:total-rows="pagination.total"
 					:per-page="pagination.per_page"

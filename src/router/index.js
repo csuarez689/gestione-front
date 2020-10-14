@@ -5,6 +5,7 @@ import UsersRoutes from './users-routes';
 import SchoolsRoutes from './schools-routes';
 import TeachersRoutes from './teachers-routes';
 import TeachingPlantRoutes from './teachingPlant-router';
+import OrdenesMeritoRoutes from './ordenes-merito';
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,7 @@ const routes = [
 	...SchoolsRoutes,
 	...TeachersRoutes,
 	...TeachingPlantRoutes,
+	...OrdenesMeritoRoutes,
 	{
 		path: '*',
 		redirect: store.getters['auth/redirectUrl'],

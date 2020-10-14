@@ -46,6 +46,19 @@ class DataService {
 				return res.data;
 			});
 	}
+
+	upload(endpoint, data) {
+		return axios
+			.post(`${API_URL}/${endpoint}`, data, {
+				headers: {
+					...authHeader(),
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((res) => {
+				return res.data;
+			});
+	}
 }
 
 export default new DataService();

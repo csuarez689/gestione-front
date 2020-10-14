@@ -31,14 +31,15 @@ new Vue({
 				{ class: ['text-center', 'mb-0', 'pb-0'] },
 				[h('strong', message)]
 			);
-			this.$bvToast.toast([vNodeMessage], {
-				autoHideDelay: 5000,
+			const options = {
+				autoHideDelay: 7000,
 				appendToast: true,
 				variant: type,
 				solid: true,
 				noCloseButton: true,
 				toaster: 'b-toaster-bottom-right',
-			});
+			};
+			this.$bvToast.toast([vNodeMessage], options);
 		},
 	},
 
