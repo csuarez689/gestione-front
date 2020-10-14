@@ -6,22 +6,29 @@
 		<!-- Table -->
 		<div class="table-wrapper mb-4">
 			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
+				<b-row>
+					<b-col sm="6">
 						<h2>
-							<b>Usuarios</b>
+							<b>Ordenes de Merito</b>
 						</h2>
-					</div>
+					</b-col>
 					<div class="col-sm-6">
-						<router-link
-							:to="{ name: 'NewUser' }"
+						<b-button
 							class="btn btn-success"
+							@click="$refs.uploadModal.show()"
 						>
-							<i class="material-icons">&#xE147;</i>
-							<span>Nuevo Usuario</span>
-						</router-link>
+							<i class="material-icons">publish</i>
+							<span>Nueva Carga</span>
+						</b-button>
+						<b-button
+							class="btn btn-danger"
+							:to="{ name: 'OrdenesFails' }"
+						>
+							<i class="material-icons">error</i>
+							<span>Ordenes erroneas</span>
+						</b-button>
 					</div>
-				</div>
+				</b-row>
 			</div>
 			<b-table
 				ref="table"
@@ -38,6 +45,9 @@
 				:per-page="pagination.per_page"
 				:filter="search"
 				@sort-changed="pagination.current_page = 1"
+				@row-clicked="
+					item => $set(item, '_showDetails', !item._showDetails)
+				"
 			>
 				<!-- Table spinner -->
 				<template v-slot:table-busy>
@@ -51,62 +61,45 @@
 					<b-card class="mb-4">
 						<b-row>
 							<b-col>
-								<b>Telefono:</b>
-								<span class="ml-1">{{ row.item.phone }}</span>
+								<b>Localidad:</b>
+								<span class="ml-1">{{
+									row.item.locality
+								}}</span>
 							</b-col>
 							<b-col>
-								<b>Última actualización:</b>
-								<span class="ml-1">{{
-									row.item.updated_at
-								}}</span>
+								<b>Región:</b>
+								<span class="ml-1">{{ row.item.region }}</span>
 							</b-col>
 						</b-row>
-						<b-row v-if="row.item.school" class="mt-2">
+						<b-row>
 							<b-col>
-								<b>Escuela:</b>
-								<span class="ml-1">{{
-									row.item.school.name
-								}}</span>
+								<b>Genero:</b>
+								<span class="ml-1">{{ row.item.gender }}</span>
 							</b-col>
 							<b-col>
-								<b>CUE Escuela:</b>
-								<span class="ml-1">{{
-									row.item.school.cue
-								}}</span>
+								<b>Cargo:</b>
+								<span class="ml-1">{{ row.item.charge }}</span>
 							</b-col>
 						</b-row>
-						<b-row v-else class="mt-2">
+						<b-row>
 							<b-col>
-								<b>Escuela:</b>
-								<span class="ml-1">Sin asignar</span>
+								<b>Título Principal:</b>
+								<span class="ml-1">{{ row.item.title1 }}</span>
+							</b-col>
+							<b-col v-if="row.item.title2">
+								<b>Título Secundario:</b>
+								<span class="ml-1">{{ row.item.title2 }}</span>
+							</b-col>
+						</b-row>
+						<b-row>
+							<b-col>
+								<b>Fecha de carga:</b>
+								<span class="ml-1">{{
+									row.item.created_at
+								}}</span>
 							</b-col>
 						</b-row>
 					</b-card>
-				</template>
-
-				<!-- Estado -->
-				<template v-slot:cell(estado)="row">{{
-					row.item.school ? "Activo" : "Inactivo"
-				}}</template>
-
-				<!-- Custom actions -->
-				<template v-slot:cell(acciones)="row">
-					<a class="view" href @click.prevent="row.toggleDetails">
-						<i class="material-icons" title="Ver">visibility</i>
-					</a>
-					<router-link
-						:to="{ name: 'EditUser', params: { id: row.item.id } }"
-						class="edit"
-					>
-						<i class="material-icons" href title="Editar">create</i>
-					</router-link>
-					<a
-						class="delete"
-						href
-						@click.prevent="$refs.deleteModal.showModal(row.item)"
-					>
-						<i class="material-icons" title="Borrar">delete</i>
-					</a>
 				</template>
 
 				<!-- No data for display -->
@@ -115,7 +108,7 @@
 						class="font-italic text-center pt-3"
 						style="font-size: medium"
 					>
-						No hay usuarios registrados!
+						No hay ordenes de merito cargadas!
 					</p>
 				</template>
 
@@ -141,22 +134,17 @@
 				class="my-0"
 			></b-pagination>
 		</div>
-		<delete-modal
-			modelName="usuario"
-			ref="deleteModal"
-			@on-deleted="$refs.table.refresh()"
-		></delete-modal>
+		<upload-modal ref="uploadModal"></upload-modal>
 	</div>
 </template>
 <script>
 import apiTableMixin from "../shared/mixins/apiTableMixin";
 import SearchBox from "../shared/SearchBox";
-import DeleteModal from "../shared/DeleteModal";
-
+import UploadModal from "./UploadModal";
 export default {
 	components: {
-		SearchBox,
-		DeleteModal
+		UploadModal,
+		SearchBox
 	},
 	mixins: [apiTableMixin],
 	data() {
@@ -164,14 +152,19 @@ export default {
 			fields: [
 				{ key: "name", label: "Nombre", sortable: true },
 				{ key: "last_name", label: "Apellido", sortable: true },
-				{ key: "dni", label: "DNI", sortable: true },
-				{ key: "email", label: "Correo Electrónico", sortable: true },
-				"estado",
-				"acciones"
+				{ key: "cuil", label: "CUIL/CUIT", sortable: true },
+				{ key: "level", label: "Nivel", sortable: true },
+				{ key: "incumbency", label: "Incumbencia", sortable: true },
+				{ key: "year", label: "Año", sortable: true }
 			],
-			endpoint: "users"
+			endpoint: "ordenesMerito"
 		};
 	}
 };
 </script>
+<style lang="scss">
+.btn-group-header {
+	float: left;
+}
+</style>
 

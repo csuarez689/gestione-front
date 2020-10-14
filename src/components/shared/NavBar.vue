@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<b-navbar toggleable="sm" type="dark">
+		<b-navbar toggleable="md" type="dark">
 			<b-navbar-brand href="#" class="mr-5">GestionE</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -27,6 +27,12 @@
 						class="nav-item-link"
 					>
 						Docentes
+					</b-nav-item>
+					<b-nav-item
+						to="/ordenesMerito"
+						active-class="item-active"
+						class="nav-item-link"
+						>Ordenes de Merito
 					</b-nav-item>
 				</b-navbar-nav>
 				<b-navbar-nav v-else>
