@@ -174,7 +174,7 @@ export default {
 					this.form.phone = data.phone;
 				})
 				.catch(error => {
-					this.$route.go(-1);
+					this.$router.go(-1);
 					console.log(error);
 				});
 		}

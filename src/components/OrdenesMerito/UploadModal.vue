@@ -111,6 +111,7 @@ export default {
 						buttonSize: "sm",
 						okVariant: "success",
 						okTitle: "Aceptar",
+						cancelVariant: "outlined",
 						cancelTitle: "Cancelar",
 						footerClass: "p-2",
 						hideHeaderClose: false,

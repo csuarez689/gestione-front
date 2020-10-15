@@ -23,8 +23,9 @@ class DataService {
 			});
 	}
 
-	delete(link) {
-		return axios.delete(link, { headers: authHeader() }).then((res) => {
+	delete(endpoint, withLink = true) {
+		let url = withLink ? endpoint : `${API_URL}/${endpoint}`;
+		return axios.delete(url, { headers: authHeader() }).then((res) => {
 			return res.data;
 		});
 	}

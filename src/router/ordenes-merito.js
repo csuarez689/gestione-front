@@ -32,6 +32,14 @@ export default [
 						/* webpackChunkName: "orden"*/ '../components/OrdenesMerito/FailsTable.vue'
 					),
 			},
+			{
+				path: 'fails/:id/repair',
+				name: 'RepairOrdenMerito',
+				component: () =>
+					import(
+						/* webpackChunkName: "orden"*/ '../components/OrdenesMerito/RepairOrdenForm.vue'
+					),
+			},
 		],
 	},
 ];

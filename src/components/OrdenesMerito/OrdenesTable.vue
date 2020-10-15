@@ -71,7 +71,7 @@
 								<span class="ml-1">{{ row.item.region }}</span>
 							</b-col>
 						</b-row>
-						<b-row>
+						<b-row class="mt-2">
 							<b-col>
 								<b>Genero:</b>
 								<span class="ml-1">{{ row.item.gender }}</span>
@@ -81,7 +81,7 @@
 								<span class="ml-1">{{ row.item.charge }}</span>
 							</b-col>
 						</b-row>
-						<b-row>
+						<b-row class="mt-2">
 							<b-col>
 								<b>Título Principal:</b>
 								<span class="ml-1">{{ row.item.title1 }}</span>
@@ -91,7 +91,7 @@
 								<span class="ml-1">{{ row.item.title2 }}</span>
 							</b-col>
 						</b-row>
-						<b-row>
+						<b-row class="mt-2">
 							<b-col>
 								<b>Fecha de carga:</b>
 								<span class="ml-1">{{

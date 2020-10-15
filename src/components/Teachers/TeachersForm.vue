@@ -166,7 +166,7 @@ export default {
 					this.selectedUrl = data._links.self;
 				})
 				.catch(error => {
-					this.$route.go(-1);
+					this.$router.go(-1);
 					console.log(error);
 				});
 		}
