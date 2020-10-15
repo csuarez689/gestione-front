@@ -6,9 +6,12 @@ import router from './router';
 
 import store from './store/index';
 
+import axios from 'axios';
+
 import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import { authHeader } from './helpers/auth-header';
 
 Vue.use(BootstrapVue);
 
@@ -20,7 +23,7 @@ Vue.filter('capitalize', function(value) {
 	return value.charAt(0).toUpperCase() + value.slice(1);
 });
 
-new Vue({
+const vm = new Vue({
 	router,
 	store,
 	methods: {
@@ -42,35 +45,28 @@ new Vue({
 			this.$bvToast.toast([vNodeMessage], options);
 		},
 	},
-
 	render: (h) => h(App),
 }).$mount('#app');
 
-// axiosApi.interceptors.response.use(
-// 	(response) => {
-// 		return response;
-// 	},
-// 	(error) => {
-// 		const originalRequest = error.config;
-// 		if (error.response.status === 401) {
-// 			if (
-// 				!originalRequest._retry &&
-// 				originalRequest.url != 'auth/refresh' &&
-// 				originalRequest.url != 'auth/login'
-// 			) {
-// 				originalRequest._retry = true;
-// 				return vm.$http.post('auth/refresh').then((res) => {
-// 					vm.$data.token = res.data.access_token;
-// 					originalRequest.headers[
-// 						'Authorization'
-// 					] = `Bearer ${res.data.access_token}`;
-// 					return vm.$http(originalRequest);
-// 				});
-// 			}
-// 			vm.$data.user = '';
-// 			vm.$data.token = '';
-// 			if (originalRequest.url != 'auth/login') vm.$router.push('/login');
-// 		}
-// 		return Promise.reject(error);
-// 	}
-// );
+axios.interceptors.response.use(
+	(response) => {
+		return response;
+	},
+	(error) => {
+		const originalRequest = error.config;
+		if (error.response.status === 401) {
+			if (
+				!originalRequest._retry &&
+				originalRequest.url != 'auth/login'
+			) {
+				originalRequest._retry = true;
+				return store.dispatch('auth/refresh').then(() => {
+					originalRequest.headers = authHeader();
+					return axios(originalRequest);
+				});
+			}
+			if (originalRequest.url != 'auth/login') vm.$router.push('/login');
+		}
+		return Promise.reject(error);
+	}
+);

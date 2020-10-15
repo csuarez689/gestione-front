@@ -85,7 +85,6 @@ export default {
 					this.showMsgBox(res);
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -120,9 +119,6 @@ export default {
 				)
 				.then(value => {
 					if (value) this.$router.push({ name: "OrdenesFails" });
-				})
-				.catch(err => {
-					console.log(err);
 				});
 		}
 	}

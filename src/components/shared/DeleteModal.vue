@@ -48,7 +48,7 @@ export default {
 					this.$root.createToast("Registro eliminado.", "success");
 					this.$emit("on-deleted");
 				})
-				.catch(error => console.log(error))
+				.catch()
 				.finally(() => this.$refs.modal.hide());
 		}
 	}

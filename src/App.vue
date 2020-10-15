@@ -17,19 +17,8 @@ body {
 	background: #f5f5f5;
 	font-family: "Varela Round", sans-serif !important;
 	font-size: 13px !important;
-	margin-bottom: 40px !important;
-	.btn {
-		i {
-			float: left;
-			font-size: 21px;
-			margin-right: 5px;
-		}
-	}
-	.container {
-		.card-footer {
-			display: flex;
-			justify-content: flex-end;
-		}
+	.loader {
+		color: #224786 !important;
 	}
 }
 </style>

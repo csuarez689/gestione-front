@@ -286,7 +286,6 @@ export default {
 					);
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		}
@@ -309,9 +308,8 @@ export default {
 				this.form.year = data.year;
 				this.vErrors = data.errors;
 			})
-			.catch(error => {
+			.catch(() => {
 				this.$router.go(-1);
-				console.log(error);
 			});
 	}
 };
