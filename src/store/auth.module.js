@@ -1,4 +1,4 @@
-import AuthService from '../services/auth-service';
+import AuthService from '../services//auth-service';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -13,47 +13,64 @@ export const auth = {
 		login({ commit }, credentials) {
 			return AuthService.login(credentials).then(
 				(data) => {
-					commit('loginSuccess', data.user);
+					commit('loginSuccess', data);
 					return Promise.resolve(data);
 				},
 				(error) => {
-					commit('loginFailure');
+					commit('logout');
 					let message =
 						error.response.status == 401
 							? 'Credenciales invalidas.'
-							: 'Ha ocurrido un error.';
+							: error.response.data;
 					return Promise.reject(message);
 				}
 			);
 		},
 
-		logout({ commit }) {
-			return AuthService.logout().then(
-				(data) => {
+		profile({ commit }) {
+			return (
+				AuthService.getProfile().then((data) => {
+					commit('loginSuccess', data);
+					Promise.resolve(data);
+				}),
+				(error) => {
 					commit('logout');
-					return Promise.resolve(data.message);
+					return Promise.reject(error.response.data.message);
+				}
+			);
+		},
+
+		refresh({ commit }) {
+			return AuthService.refresh().then(
+				(data) => {
+					commit('refresh', data.access_token);
+					return Promise.resolve(data);
 				},
 				(error) => {
-					return Promise.reject(error.response.data.message);
+					commit('logout');
+					return Promise.reject(error);
 				}
 			);
 		},
 	},
 
 	mutations: {
-		loginSuccess(state, user) {
+		loginSuccess(state, data) {
 			state.loggedIn = true;
-			state.user = user;
-		},
-
-		loginFailure(state) {
-			state.loggedIn = false;
-			state.user = null;
+			state.user = data.user;
+			localStorage.setItem('user', JSON.stringify(data.user));
+			localStorage.setItem('token', data.access_token);
 		},
 
 		logout(state) {
 			state.loggedIn = false;
 			state.user = null;
+			localStorage.removeItem('user');
+			localStorage.removeItem('token');
+		},
+
+		refresh(state, token) {
+			localStorage.setItem('token', token);
 		},
 	},
 

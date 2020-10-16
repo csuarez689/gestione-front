@@ -275,7 +275,6 @@ export default {
 					this.$root.createToast("Materia actualizada.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -290,7 +289,6 @@ export default {
 					this.$root.createToast("Materia creada.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -325,9 +323,8 @@ export default {
 							: null;
 					}
 				})
-				.catch(error => {
+				.catch(() => {
 					this.$router.go(-1);
-					console.log(error);
 				});
 		}
 	},

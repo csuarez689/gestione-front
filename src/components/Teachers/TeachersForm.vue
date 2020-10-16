@@ -132,7 +132,6 @@ export default {
 					this.$root.createToast("Docente actualizado.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -144,7 +143,6 @@ export default {
 					this.$root.createToast("Docente creado.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		}
@@ -165,9 +163,8 @@ export default {
 					this.location.locality_id = data.locality.id;
 					this.selectedUrl = data._links.self;
 				})
-				.catch(error => {
+				.catch(() => {
 					this.$router.go(-1);
-					console.log(error);
 				});
 		}
 	},

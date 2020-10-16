@@ -490,7 +490,6 @@ export default {
 					this.$root.createToast("Escuela actualizada.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -502,7 +501,6 @@ export default {
 					this.$root.createToast("Escuela creada.", "success");
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -522,9 +520,8 @@ export default {
 					this.highSchoolTypes = selects.high_school_types;
 					this.users = users;
 				})
-				.catch(error => {
+				.catch(() => {
 					this.$router.go(-1);
-					console.log(error);
 				});
 		}
 	},
@@ -574,9 +571,8 @@ export default {
 					this.location.locality_id = data.locality.id;
 					this.selectedUrl = data._links.self;
 				})
-				.catch(error => {
+				.catch(() => {
 					this.$router.go(-1);
-					console.log(error);
 				});
 		}
 	}

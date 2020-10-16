@@ -73,15 +73,8 @@ import { mapGetters } from "vuex";
 export default {
 	methods: {
 		logout() {
-			this.$store
-				.dispatch("auth/logout")
-				.then(res => {
-					this.$router.push("/login");
-					this.$root.createToast(res, "success");
-				})
-				.catch(error => {
-					this.$root.createToast(error, "danger");
-				});
+			this.$store.commit("auth/logout");
+			this.$router.push("/login");
 		}
 	},
 	computed: {

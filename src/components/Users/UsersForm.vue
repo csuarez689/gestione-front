@@ -141,7 +141,6 @@ export default {
 					this.$root.createToast("Usuario actualizado.", "success");
 				})
 				.catch(error => {
-					console.log(error.response);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		},
@@ -156,7 +155,6 @@ export default {
 					);
 				})
 				.catch(error => {
-					console.log(error.response);
 					this.vErrors = error.response.data.errors ?? [];
 				});
 		}
@@ -173,9 +171,8 @@ export default {
 					this.form.email = data.email;
 					this.form.phone = data.phone;
 				})
-				.catch(error => {
+				.catch(() => {
 					this.$router.go(-1);
-					console.log(error);
 				});
 		}
 	}

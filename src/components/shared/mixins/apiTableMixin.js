@@ -25,12 +25,10 @@ export default {
 			};
 			return DataService.getAll(this.endpoint, params)
 				.then((data) => {
-					console.log(data);
 					this.pagination = data.meta;
 					return data.data;
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch(() => {
 					return [];
 				});
 		},

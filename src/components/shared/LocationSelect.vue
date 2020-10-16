@@ -74,24 +74,19 @@ export default {
 			});
 		},
 		getProvinces() {
-			dataService
-				.getAll("provinces")
-				.then(data => {
-					this.provinces = data;
-				})
-				.catch(error => console.log(error));
+			dataService.getAll("provinces").then(data => {
+				this.provinces = data;
+			});
 		},
 		getDepartments() {
 			dataService
 				.getAll(`provinces/${this.value.province_id}/departments`)
-				.then(data => (this.departments = data))
-				.catch(error => console.log(error));
+				.then(data => (this.departments = data));
 		},
 		getLocalities() {
 			dataService
 				.getAll(`departments/${this.value.department_id}/localities`)
-				.then(data => (this.localities = data))
-				.catch(error => console.log(error));
+				.then(data => (this.localities = data));
 		}
 	},
 	watch: {
