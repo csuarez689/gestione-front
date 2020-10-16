@@ -11,11 +11,11 @@
 						@blur="onSearch()"
 						placeholder="Buscar..."
 					></b-form-input>
-					<b-input-group-append>
+					<template v-slot:append>
 						<b-button variant="success" @click="onSearch()">
 							<i class="material-icons">search</i>
 						</b-button>
-					</b-input-group-append>
+					</template>
 				</b-input-group>
 			</b-col>
 		</b-row>
@@ -33,3 +33,9 @@ export default {
 	}
 };
 </script>
+<style lang="scss" scoped>
+i {
+	float: left;
+	font-size: 21px;
+}
+</style>

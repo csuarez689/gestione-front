@@ -21,16 +21,28 @@
 			<b-button size="md" variant="outline" @click="cancel()"
 				>Cancelar</b-button
 			>
-			<b-button size="md" variant="danger" @click="deleteItem()"
-				>Eliminar</b-button
+			<b-button
+				size="md"
+				variant="danger"
+				@click="deleteItem()"
+				:disabled="$store.state.loader"
 			>
+				<b-spinner
+					small
+					class="mb-1 mr-1"
+					v-show="$store.state.loader"
+				></b-spinner>
+				Eliminar
+			</b-button>
 		</template>
 	</b-modal>
 </template>
 <script>
 import dataService from "../../services/data-service";
+
 export default {
 	props: ["modelName"],
+
 	data() {
 		return {
 			url: null
@@ -42,6 +54,7 @@ export default {
 			if (this.url) this.$refs.modal.show();
 		},
 		deleteItem() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.delete(this.url)
 				.then(() => {
@@ -49,7 +62,10 @@ export default {
 					this.$emit("on-deleted");
 				})
 				.catch()
-				.finally(() => this.$refs.modal.hide());
+				.finally(() => {
+					this.$refs.modal.hide();
+					this.$store.commit("setLoader", false);
+				});
 		}
 	}
 };

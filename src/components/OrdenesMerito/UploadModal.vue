@@ -50,7 +50,17 @@
 			<b-button size="md" variant="outline" @click="closeModal()"
 				>Cancelar</b-button
 			>
-			<b-button size="md" variant="success" @click="sendForm"
+			<b-button
+				size="md"
+				variant="success"
+				@click="sendForm"
+				:disabled="$store.state.loader"
+			>
+				<b-spinner
+					small
+					class="mb-1 mr-1"
+					v-show="$store.state.loader"
+				></b-spinner
 				>Enviar</b-button
 			>
 		</template>
@@ -73,6 +83,7 @@ export default {
 			let formData = new FormData();
 			formData.append("file", this.file);
 			formData.append("year", this.year);
+			this.$store.commit("setLoader", true);
 			dataService
 				.upload(`ordenesMerito/upload`, formData)
 				.then(res => {
@@ -86,7 +97,8 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		},
 		show() {
 			this.$refs.modal.show();
