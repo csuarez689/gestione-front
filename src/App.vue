@@ -6,11 +6,7 @@
 <script>
 </script>
 <style lang="scss">
-//Tables styles
 @import "./assets/sass/table";
-
-//Modal styles
-// @import 'modal';
 
 body {
 	color: #566787;
