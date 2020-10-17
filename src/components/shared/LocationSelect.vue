@@ -8,7 +8,7 @@
 				v-model="value.province_id"
 				@change="resetSelects()"
 			>
-				<option value hidden></option>
+				<option value hidden> </option>
 				<option
 					v-for="province in provinces"
 					:key="province.id"
@@ -25,7 +25,7 @@
 				v-model="value.department_id"
 				:disabled="!value.province_id"
 			>
-				<option hidden></option>
+				<option value hidden> </option>
 				<option
 					v-for="department in departments"
 					:key="department.id"
@@ -43,7 +43,7 @@
 				:disabled="!value.department_id"
 				@change="$emit('input', value)"
 			>
-				<option hidden></option>
+				<option value hidden> </option>
 				<option
 					v-for="locality in localities"
 					:key="locality.id"

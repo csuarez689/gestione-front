@@ -119,7 +119,9 @@
 						<label>Incumbencia</label>
 						<select
 							class="form-control"
-							:class="{ 'is-invalid': hasError('incumbency') }"
+							:class="{
+								'is-invalid': hasError('incumbency')
+							}"
 							v-model="form.incumbency"
 						>
 							<option value="" selected>SIN DEFINIR</option>
@@ -142,7 +144,9 @@
 						<select
 							required
 							class="form-control"
-							:class="{ 'is-invalid': hasError('incumbency') }"
+							:class="{
+								'is-invalid': hasError('incumbency')
+							}"
 							v-model="form.level"
 						>
 							<option value="" hidden></option>
@@ -273,6 +277,7 @@ export default {
 	},
 	methods: {
 		update() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.create(
 					`failedOrdenesMerito/${this.$route.params.id}/repair`,
@@ -287,30 +292,37 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
+		},
+		loadApiFormData() {
+			this.$store.commit("setLoader", true);
+			dataService
+				.getOne("failedOrdenesMerito", this.$route.params.id)
+				.then(data => {
+					this.form.name = data.name;
+					this.form.last_name = data.last_name;
+					this.form.cuil = data.cuil;
+					this.form.gender = data.gender;
+					this.form.region = data.region;
+					this.form.locality = data.locality;
+					this.form.incumbency = data.incumbency;
+					this.form.level = data.level;
+					this.form.charge = data.charge;
+					this.form.title1 = data.title1;
+					this.form.title2 = data.title2;
+					this.form.year = data.year;
+					this.vErrors = data.errors;
+				})
+				.catch(() => {
+					this.$router.go(-1);
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		}
 	},
+
 	created() {
-		dataService
-			.getOne("failedOrdenesMerito", this.$route.params.id)
-			.then(data => {
-				this.form.name = data.name;
-				this.form.last_name = data.last_name;
-				this.form.cuil = data.cuil;
-				this.form.gender = data.gender;
-				this.form.region = data.region;
-				this.form.locality = data.locality;
-				this.form.incumbency = data.incumbency;
-				this.form.level = data.level;
-				this.form.charge = data.charge;
-				this.form.title1 = data.title1;
-				this.form.title2 = data.title2;
-				this.form.year = data.year;
-				this.vErrors = data.errors;
-			})
-			.catch(() => {
-				this.$router.go(-1);
-			});
+		this.loadApiFormData();
 	}
 };
 </script>
@@ -319,5 +331,8 @@ export default {
 	margin: auto;
 	max-width: 35rem;
 	min-width: 35rem;
+	.card-footer {
+		text-align: end;
+	}
 }
 </style>

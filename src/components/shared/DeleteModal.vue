@@ -25,13 +25,9 @@
 				size="md"
 				variant="danger"
 				@click="deleteItem()"
-				:disabled="$store.state.loader"
+				:disabled="loader"
 			>
-				<b-spinner
-					small
-					class="mb-1 mr-1"
-					v-show="$store.state.loader"
-				></b-spinner>
+				<b-spinner small class="mb-1 mr-1" v-show="loader"></b-spinner>
 				Eliminar
 			</b-button>
 		</template>
@@ -45,7 +41,8 @@ export default {
 
 	data() {
 		return {
-			url: null
+			url: null,
+			loader: false
 		};
 	},
 	methods: {
@@ -54,7 +51,7 @@ export default {
 			if (this.url) this.$refs.modal.show();
 		},
 		deleteItem() {
-			this.$store.commit("setLoader", true);
+			this.loader = true;
 			dataService
 				.delete(this.url)
 				.then(() => {
@@ -64,7 +61,7 @@ export default {
 				.catch()
 				.finally(() => {
 					this.$refs.modal.hide();
-					this.$store.commit("setLoader", false);
+					this.loader = false;
 				});
 		}
 	}

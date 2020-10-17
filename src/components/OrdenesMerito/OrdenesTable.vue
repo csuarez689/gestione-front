@@ -134,7 +134,10 @@
 				class="my-0"
 			></b-pagination>
 		</div>
-		<upload-modal ref="uploadModal"></upload-modal>
+		<upload-modal
+			ref="uploadModal"
+			@on-done="$refs.table.refresh()"
+		></upload-modal>
 	</div>
 </template>
 <script>

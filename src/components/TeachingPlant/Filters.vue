@@ -66,4 +66,8 @@ export default {
 .search {
 	width: 25vw !important;
 }
+i {
+	float: left;
+	font-size: 21px;
+}
 </style>

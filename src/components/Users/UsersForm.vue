@@ -106,7 +106,10 @@
 				type="submit"
 				size="md"
 				@click="sendForm"
-				:class="{ 'btn-success': !isEditMode, 'btn-info': isEditMode }"
+				:class="{
+					'btn-success': !isEditMode,
+					'btn-info': isEditMode
+				}"
 				class="text-light"
 				>{{ isEditMode ? "Actualizar" : "Guardar" }}</b-button
 			>
@@ -134,6 +137,7 @@ export default {
 	},
 	methods: {
 		update() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.update("users", this.form)
 				.then(() => {
@@ -142,9 +146,11 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		},
 		create() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.create("users", this.form)
 				.then(() => {
@@ -156,11 +162,13 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		}
 	},
 	created() {
 		if (this.isEditMode) {
+			this.$store.commit("setLoader", true);
 			dataService
 				.getOne("users", this.$route.params.id)
 				.then(data => {
@@ -173,7 +181,8 @@ export default {
 				})
 				.catch(() => {
 					this.$router.go(-1);
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		}
 	}
 };
@@ -184,5 +193,8 @@ export default {
 	margin: auto;
 	max-width: 30rem;
 	min-width: 30rem;
+	.card-footer {
+		text-align: end;
+	}
 }
 </style>

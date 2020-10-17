@@ -56,7 +56,9 @@
 						<input
 							type="number"
 							class="form-control"
-							:class="{ 'is-invalid': hasError('monthly_hours') }"
+							:class="{
+								'is-invalid': hasError('monthly_hours')
+							}"
 							required
 							min="10"
 							max="200"
@@ -96,10 +98,10 @@
 					><b-button
 						variant="success"
 						size="sm"
-						class="ml-auto"
+						class="ml-auto text-center"
 						:to="{ name: 'NewTeacher' }"
 					>
-						<i class="material-icons">&#xE147;</i> Nuevo
+						<i class="material-icons mr-2">&#xE147;</i> Nuevo
 						Docente</b-button
 					></b-row
 				>
@@ -108,7 +110,9 @@
 						<label>Nombre Docente</label>
 						<select
 							class="form-control"
-							:class="{ 'is-invalid': hasError('teacher_id') }"
+							:class="{
+								'is-invalid': hasError('teacher_id')
+							}"
 							v-model="form.teacher_id"
 						>
 							<option value></option>
@@ -134,7 +138,9 @@
 						<label>CUIL/CUIT Docente</label>
 						<select
 							class="form-control"
-							:class="{ 'is-invalid': hasError('teacher_id') }"
+							:class="{
+								'is-invalid': hasError('teacher_id')
+							}"
 							v-model="form.teacher_id"
 						>
 							<option value></option>
@@ -160,7 +166,9 @@
 						<input
 							type="text"
 							class="form-control"
-							:class="{ 'is-invalid': hasError('teacher_title') }"
+							:class="{
+								'is-invalid': hasError('teacher_title')
+							}"
 							minlength="10"
 							maxlength="150"
 							v-model="form.teacher_title"
@@ -201,7 +209,9 @@
 						<label>Situación de Revista</label>
 						<select
 							class="form-control"
-							:class="{ 'is-invalid': hasError('job_state_id') }"
+							:class="{
+								'is-invalid': hasError('job_state_id')
+							}"
 							v-model="form.job_state_id"
 							:disabled="!form.teacher_id"
 						>
@@ -236,7 +246,10 @@
 				type="submit"
 				size="md"
 				@click="sendForm"
-				:class="{ 'btn-success': !isEditMode, 'btn-info': isEditMode }"
+				:class="{
+					'btn-success': !isEditMode,
+					'btn-info': isEditMode
+				}"
 				class="text-light"
 				>{{ isEditMode ? "Actualizar" : "Guardar" }}</b-button
 			>
@@ -268,6 +281,7 @@ export default {
 	},
 	methods: {
 		update() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.update("teachingPlant", this.form)
 				.then(() => {
@@ -276,9 +290,11 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		},
 		create() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.create(
 					`schools/${this.$store.state.auth.user.school_id}/teachingPlant`,
@@ -290,9 +306,11 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		},
 		loadApiFormData() {
+			this.$store.commit("setLoader", true);
 			let promises = [];
 			promises.push(dataService.getAll("formData?include=job_states"));
 			promises.push(dataService.getAll("teachers?sort_by=last_name"));
@@ -301,7 +319,6 @@ export default {
 					dataService.getOne("teachingPlant", this.$route.params.id)
 				);
 			}
-
 			Promise.all(promises)
 				.then(res => {
 					this.job_states = res[0].job_states;
@@ -325,7 +342,8 @@ export default {
 				})
 				.catch(() => {
 					this.$router.go(-1);
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		}
 	},
 	computed: {
@@ -362,5 +380,8 @@ export default {
 	margin: auto;
 	max-width: 30rem;
 	min-width: 30rem;
+	.card-footer {
+		text-align: end;
+	}
 }
 </style>

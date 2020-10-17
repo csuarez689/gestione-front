@@ -202,7 +202,7 @@ export default {
 					title: "Vaciar registros",
 					hideHeaderClose: true,
 					size: "sm",
-					buttonSize: "sm",
+					buttonSize: "md",
 					okVariant: "danger",
 					okTitle: "Aceptar",
 					cancelTitle: "Cancelar",

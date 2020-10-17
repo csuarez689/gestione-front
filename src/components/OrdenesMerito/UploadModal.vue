@@ -54,13 +54,9 @@
 				size="md"
 				variant="success"
 				@click="sendForm"
-				:disabled="$store.state.loader"
+				:disabled="loader"
 			>
-				<b-spinner
-					small
-					class="mb-1 mr-1"
-					v-show="$store.state.loader"
-				></b-spinner
+				<b-spinner small class="mb-1 mr-1" v-show="loader"></b-spinner
 				>Enviar</b-button
 			>
 		</template>
@@ -75,7 +71,8 @@ export default {
 	data() {
 		return {
 			file: null,
-			year: ""
+			year: "",
+			loader: false
 		};
 	},
 	methods: {
@@ -83,7 +80,7 @@ export default {
 			let formData = new FormData();
 			formData.append("file", this.file);
 			formData.append("year", this.year);
-			this.$store.commit("setLoader", true);
+			this.loader = true;
 			dataService
 				.upload(`ordenesMerito/upload`, formData)
 				.then(res => {
@@ -98,7 +95,7 @@ export default {
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
 				})
-				.finally(() => this.$store.commit("setLoader", false));
+				.finally(() => (this.loader = true));
 		},
 		show() {
 			this.$refs.modal.show();
@@ -119,7 +116,7 @@ export default {
 						data.failed_rows}. ¿Desea repararlos ahora?`,
 					{
 						size: "sm",
-						buttonSize: "sm",
+						buttonSize: "md",
 						okVariant: "success",
 						okTitle: "Aceptar",
 						cancelVariant: "outlined",
@@ -131,6 +128,7 @@ export default {
 				)
 				.then(value => {
 					if (value) this.$router.push({ name: "OrdenesFails" });
+					else this.$emit("on-done");
 				});
 		}
 	}

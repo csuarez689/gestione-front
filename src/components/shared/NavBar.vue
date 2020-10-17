@@ -80,9 +80,6 @@ export default {
 	computed: {
 		...mapGetters("auth", ["userFullName"])
 	}
-	// created(){
-	// 	this.$store.state.auth.
-	// }
 };
 </script>
 <style lang="scss">

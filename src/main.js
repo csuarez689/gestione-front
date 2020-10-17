@@ -3,16 +3,13 @@ import Vue from 'vue';
 import App from './App.vue';
 
 import router from './router';
-
 import store from './store/index';
-
 import axios from 'axios';
+import { authHeader } from './helpers/auth-header';
 
 import { BootstrapVue } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
-import { authHeader } from './helpers/auth-header';
-
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
@@ -50,6 +47,7 @@ const vm = new Vue({
 
 axios.interceptors.response.use(
 	(response) => {
+		store.commit('setLoader', false);
 		return response;
 	},
 	(error) => {

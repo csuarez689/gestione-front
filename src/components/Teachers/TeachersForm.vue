@@ -81,20 +81,24 @@
 				></location-select>
 			</form>
 		</b-card-body>
+
 		<template v-slot:footer>
 			<b-button
 				type="reset"
 				size="md"
 				variant="outline"
 				@click="$router.go(-1)"
-				class="mr-3"
+				class="mr-4"
 				>Cancelar</b-button
 			>
 			<b-button
 				type="submit"
 				size="md"
 				@click="sendForm"
-				:class="{ 'btn-success': !isEditMode, 'btn-info': isEditMode }"
+				:class="{
+					'btn-success': !isEditMode,
+					'btn-info': isEditMode
+				}"
 				class="text-light"
 				>{{ isEditMode ? "Actualizar" : "Guardar" }}</b-button
 			>
@@ -125,6 +129,7 @@ export default {
 	},
 	methods: {
 		update() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.update("teachers", this.form)
 				.then(() => {
@@ -133,9 +138,11 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		},
 		create() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.create("teachers", this.form)
 				.then(() => {
@@ -144,11 +151,11 @@ export default {
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
-				});
-		}
-	},
-	created() {
-		if (this.isEditMode) {
+				})
+				.finally(() => this.$store.commit("setLoader", false));
+		},
+		loadApiFormData() {
+			this.$store.commit("setLoader", true);
 			dataService
 				.getOne("teachers", this.$route.params.id)
 				.then(data => {
@@ -165,8 +172,12 @@ export default {
 				})
 				.catch(() => {
 					this.$router.go(-1);
-				});
+				})
+				.finally(() => this.$store.commit("setLoader", false));
 		}
+	},
+	created() {
+		if (this.isEditMode) this.loadApiFormData();
 	},
 	watch: {
 		"location.locality_id"(value) {
@@ -180,5 +191,8 @@ export default {
 	margin: auto;
 	max-width: 30rem;
 	min-width: 34rem;
+	.card-footer {
+		text-align: end;
+	}
 }
 </style>
