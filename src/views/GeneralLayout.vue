@@ -3,7 +3,7 @@
 		<nav-bar v-if="$store.state.auth.loggedIn"></nav-bar>
 		<b-overlay
 			:show="$store.state.loader"
-			rounded="lg"
+			rounded="sm"
 			variant="transparent"
 			opacity="1"
 			blur="1px"

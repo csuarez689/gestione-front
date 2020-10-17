@@ -62,12 +62,12 @@ export default {
 	}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .search {
-	width: 25vw !important;
+	width: 25vw;
 }
 i {
 	float: left;
-	font-size: 21px;
+	font-size: 22px;
 }
 </style>

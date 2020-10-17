@@ -299,11 +299,19 @@
 								:class="{
 									'is-invalid': hasError('orientation')
 								}"
+								list="school_orientations"
 								required
 								minlength="10"
 								maxlength="150"
 								v-model="form.orientation"
 							/>
+							<datalist id="school_orientations">
+								<option
+									v-for="school_orientation in school_orientations"
+									:key="school_orientation.name"
+									>{{ school_orientation.name }}</option
+								>
+							</datalist>
 							<div
 								class="invalid-feedback"
 								v-if="hasError('orientation')"
@@ -496,6 +504,7 @@ export default {
 			categories: [],
 			journeyTypes: [],
 			highSchoolTypes: [],
+			school_orientations: [],
 			users: [],
 			form: {
 				id: "",
@@ -557,7 +566,7 @@ export default {
 			let promises = [];
 			promises.push(
 				dataService.getAll(
-					"formData?include=ambits,sectors,types,levels,categories,journey_types,high_school_types"
+					"formData?include=ambits,sectors,types,levels,categories,journey_types,high_school_types,school_orientations"
 				)
 			);
 			promises.push(dataService.getAll("users?sort_by=last_name"));
@@ -568,6 +577,7 @@ export default {
 			}
 			Promise.all(promises)
 				.then(res => {
+					this.school_orientations = res[0].school_orientations;
 					this.ambits = res[0].ambits;
 					this.sectors = res[0].sectors;
 					this.types = res[0].types;

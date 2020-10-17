@@ -78,12 +78,20 @@
 						<input
 							type="text"
 							class="form-control"
+							list="subjects"
 							:class="{ 'is-invalid': hasError('subject') }"
 							required
 							minlength="5"
 							maxlength="100"
 							v-model="form.subject"
 						/>
+						<datalist id="subjects">
+							<option
+								v-for="subject in subjects"
+								:key="subject.name"
+								>{{ subject.name }}</option
+							>
+						</datalist>
 						<div
 							class="invalid-feedback"
 							v-if="hasError('subject')"
@@ -98,11 +106,13 @@
 					><b-button
 						variant="success"
 						size="sm"
-						class="ml-auto text-center"
+						class="ml-auto"
 						:to="{ name: 'NewTeacher' }"
 					>
-						<i class="material-icons mr-2">&#xE147;</i> Nuevo
-						Docente</b-button
+						<div>
+							<i class="material-icons mr-2">&#xE147;</i>Nuevo
+							Docente
+						</div></b-button
 					></b-row
 				>
 				<b-row>
@@ -169,11 +179,19 @@
 							:class="{
 								'is-invalid': hasError('teacher_title')
 							}"
+							list="teacher_titles"
 							minlength="10"
 							maxlength="150"
 							v-model="form.teacher_title"
 							:disabled="!form.teacher_id"
 						/>
+						<datalist id="teacher_titles">
+							<option
+								v-for="teacher_title in teacher_titles"
+								:key="teacher_title.name"
+								>{{ teacher_title.name }}</option
+							>
+						</datalist>
 						<div
 							class="invalid-feedback"
 							v-if="hasError('teacher_title')"
@@ -264,6 +282,8 @@ export default {
 	mixins: [FormMixin],
 	data() {
 		return {
+			subjects: [],
+			teacher_titles: [],
 			teachers: [],
 			job_states: [],
 			form: {
@@ -312,7 +332,11 @@ export default {
 		loadApiFormData() {
 			this.$store.commit("setLoader", true);
 			let promises = [];
-			promises.push(dataService.getAll("formData?include=job_states"));
+			promises.push(
+				dataService.getAll(
+					"formData?include=job_states,subjects,teacher_titles"
+				)
+			);
 			promises.push(dataService.getAll("teachers?sort_by=last_name"));
 			if (this.isEditMode) {
 				promises.push(
@@ -322,6 +346,8 @@ export default {
 			Promise.all(promises)
 				.then(res => {
 					this.job_states = res[0].job_states;
+					this.subjects = res[0].subjects;
+					this.teacher_titles = res[0].teacher_titles;
 					this.teachers = res[1];
 					if (this.isEditMode) {
 						this.form.id = res[2].id;
@@ -380,6 +406,12 @@ export default {
 	margin: auto;
 	max-width: 30rem;
 	min-width: 30rem;
+
+	i {
+		float: left;
+		font-size: 17px;
+	}
+
 	.card-footer {
 		text-align: end;
 	}

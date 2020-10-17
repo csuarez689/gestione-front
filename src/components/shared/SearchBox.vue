@@ -36,6 +36,6 @@ export default {
 <style lang="scss" scoped>
 i {
 	float: left;
-	font-size: 21px;
+	font-size: 22px;
 }
 </style>
