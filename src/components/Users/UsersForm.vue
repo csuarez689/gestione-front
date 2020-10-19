@@ -6,7 +6,7 @@
 			</h5>
 		</template>
 		<b-card-body>
-			<form ref="form">
+			<form ref="form" @submit.prevent="sendForm">
 				<div class="form-group">
 					<label>Apellido</label>
 					<input

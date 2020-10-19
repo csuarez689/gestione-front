@@ -4,7 +4,7 @@
 			<h5>Nueva Carga</h5>
 		</template>
 		<template v-slot:default>
-			<form ref="form">
+			<form ref="form" @submit.prevent="sendForm">
 				<b-row align-h="center">
 					<b-col xs="12" md="12" class="mb-3">
 						<b-form-input

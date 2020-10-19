@@ -7,7 +7,7 @@
 		</template>
 
 		<b-card-body>
-			<form ref="form">
+			<form ref="form" @submit.prevent="sendForm">
 				<b-row>
 					<b-col xs="4" class="form-group">
 						<label>Año</label>

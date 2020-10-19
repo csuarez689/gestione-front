@@ -6,21 +6,12 @@ import SchoolsRoutes from './schools-routes';
 import TeachersRoutes from './teachers-routes';
 import TeachingPlantRoutes from './teachingPlant-router';
 import OrdenesMeritoRoutes from './ordenes-merito';
+import AuthRoutes from './auth-routes';
 
 Vue.use(VueRouter);
 
 const routes = [
-	{
-		path: '/login',
-		name: 'Login',
-		component: () =>
-			import(/* webpackChunkName: "login" */ '../views/Login.vue'),
-		beforeEnter: (to, from, next) => {
-			if (store.state.auth.loggedIn)
-				next(store.getters['auth/redirectUrl']);
-			else next();
-		},
-	},
+	...AuthRoutes,
 	...UsersRoutes,
 	...SchoolsRoutes,
 	...TeachersRoutes,

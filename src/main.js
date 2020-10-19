@@ -55,15 +55,19 @@ axios.interceptors.response.use(
 		if (error.response.status === 401) {
 			if (
 				!originalRequest._retry &&
-				originalRequest.url != 'auth/login'
+				originalRequest.url != 'http://localhost:8000/api/auth/login'
 			) {
 				originalRequest._retry = true;
-				return store.dispatch('auth/refresh').then(() => {
-					originalRequest.headers = authHeader();
-					return axios(originalRequest);
-				});
+				return store
+					.dispatch('auth/refresh')
+					.then(() => {
+						originalRequest.headers = authHeader();
+						return axios(originalRequest);
+					})
+					.catch(() => {
+						vm.$router.push('/login');
+					});
 			}
-			if (originalRequest.url != 'auth/login') vm.$router.push('/login');
 		}
 		return Promise.reject(error);
 	}
