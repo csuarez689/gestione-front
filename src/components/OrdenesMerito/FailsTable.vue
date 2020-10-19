@@ -216,10 +216,6 @@ export default {
 							.delete("failedOrdenesMerito", false)
 							.then(() => {
 								this.$refs.table.refresh();
-								this.$root.createToast(
-									"Se han eliminado los registros erroneos.",
-									"success"
-								);
 							});
 					}
 				});

@@ -2,8 +2,70 @@
 	<b-modal size="md" centered no-close-on-backdrop no-close-on-esc ref="modal"
 		><template v-slot:modal-header>
 			<h5>Nueva Carga</h5>
+			<a href @click.prevent="showInfo = !showInfo">
+				<i class="material-icons" title="Ayuda">help_outline </i>
+			</a>
 		</template>
 		<template v-slot:default>
+			<b-alert
+				:show="showInfo"
+				variant="primary"
+				class="mb-5"
+				dismissible
+				@dismissed="showInfo = false"
+			>
+				<b-row>
+					<b-col>
+						<b
+							>Un docente solo se puede incribir una vez por año a
+							un mismo cargo.</b
+						></b-col
+					>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>Incumbencia:</b> No obligatorio. Admitidos valores
+						que contengan A1, A2, A3, B1, B2, B3, B4, B5, C1, C2,
+						C3, C4, C5.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>Nivel:</b>Admitidos valores inicial, primario,
+						secundario.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>Región:</b> Admitidos valores del 1 al 6.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>Nombre y Apellido:</b> Son de caracter obligatorio.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>CUIL/CUIT:</b> Solo numeros, sin guiones.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b>Genero:</b> Solo admitido masculino y femenino.
+					</b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col> <b>Localidad:</b> De caracter obligatorio. </b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col> <b>Cargo:</b> De caracter obligatorio. </b-col>
+				</b-row>
+				<b-row class="mt-2">
+					<b-col> <b>Titulo 1:</b> De caracter obligatorio. </b-col>
+				</b-row>
+			</b-alert>
+
 			<form ref="form" @submit.prevent="sendForm">
 				<b-row align-h="center">
 					<b-col xs="12" md="12" class="mb-3">
@@ -72,7 +134,8 @@ export default {
 		return {
 			file: null,
 			year: "",
-			loader: false
+			loader: false,
+			showInfo: false
 		};
 	},
 	methods: {
@@ -95,7 +158,7 @@ export default {
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];
 				})
-				.finally(() => (this.loader = true));
+				.finally(() => (this.loader = false));
 		},
 		show() {
 			this.$refs.modal.show();

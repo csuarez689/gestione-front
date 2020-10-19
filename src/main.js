@@ -47,7 +47,8 @@ const vm = new Vue({
 
 axios.interceptors.response.use(
 	(response) => {
-		store.commit('setLoader', false);
+		if (response.data && response.data.message)
+			vm.createToast(response.data.message, 'success');
 		return response;
 	},
 	(error) => {
@@ -68,6 +69,11 @@ axios.interceptors.response.use(
 						vm.$router.push('/login');
 					});
 			}
+		} else {
+			if (error.status !== 500)
+				if (error.response.data && error.response.data.message)
+					vm.createToast(error.response.data.message, 'danger');
+			vm.createToast('¡Upps!, ha ocurrido un error.', 'danger');
 		}
 		return Promise.reject(error);
 	}

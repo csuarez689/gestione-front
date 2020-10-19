@@ -72,7 +72,6 @@ export default {
 					this.$router.go(-1);
 				})
 				.catch(error => {
-					console.log(error.response);
 					this.vErrors = error.response.data.errors ?? [];
 				})
 				.finally(() => this.$store.commit("setLoader", false));
