@@ -82,7 +82,6 @@ export default {
 			.getOne("schools", this.$store.state.auth.user.school_id)
 			.then(data => {
 				this.school = data;
-				console.log(data);
 			})
 			.finally(() => this.$store.commit("setLoader", false));
 	}

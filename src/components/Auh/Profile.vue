@@ -147,7 +147,6 @@ export default {
 					this.$router.push(this.$store.getters["auth/redirectUrl"]);
 				})
 				.catch(error => {
-					console.log(error);
 					this.vErrors = error.errors;
 				})
 				.finally(() => this.$store.commit("setLoader", false));
