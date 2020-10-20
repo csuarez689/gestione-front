@@ -57,10 +57,10 @@ export default {
 				.then(() => {
 					this.$root.createToast("Registro eliminado.", "success");
 					this.$emit("on-deleted");
-				})
-				.catch()
-				.finally(() => {
 					this.$refs.modal.hide();
+				})
+				.catch(() => this.$refs.modal.hide())
+				.finally(() => {
 					this.loader = false;
 				});
 		}
