@@ -87,7 +87,7 @@ export default {
 					this.$router.push(this.redirectUrl);
 				})
 				.catch(error => {
-					this.vErrors = error.errors ? error.errors : [];
+					this.vErrors = error.errors ?? [];
 					this.form.password = "";
 					if (!this.vErrors.length)
 						this.$root.createToast(

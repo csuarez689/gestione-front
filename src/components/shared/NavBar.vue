@@ -59,7 +59,16 @@
 						<template v-slot:button-content>
 							<em class="pr-2">{{ userFullName }}</em>
 						</template>
-						<b-dropdown-item to="/profile">Perfil</b-dropdown-item>
+						<b-dropdown-item
+							v-if="$store.state.auth.user.school_id"
+							to="/me/school"
+							>Mi Escuela</b-dropdown-item
+						>
+						<b-dropdown-item to="/me">Mis datos</b-dropdown-item>
+						<b-dropdown-item to="/me/changePassword"
+							>Cambiar contraseña</b-dropdown-item
+						>
+
 						<b-dropdown-item @click="logout">Salir</b-dropdown-item>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>

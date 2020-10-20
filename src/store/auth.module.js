@@ -18,24 +18,31 @@ export const auth = {
 				},
 				(error) => {
 					commit('logout');
-					let message =
-						error.response.status == 401
-							? 'Credenciales invalidas.'
-							: error.response.data;
-					return Promise.reject(message);
+					return Promise.reject(error.response.data);
 				}
 			);
 		},
 
 		profile({ commit }) {
-			return (
-				AuthService.getProfile().then((data) => {
-					commit('loginSuccess', data);
-					Promise.resolve(data);
-				}),
+			return AuthService.getProfile().then(
+				(res) => {
+					commit('setUser', res.data);
+					return Promise.resolve(res.data);
+				},
 				(error) => {
-					commit('logout');
-					return Promise.reject(error.response.data.message);
+					return Promise.reject(error.response.data);
+				}
+			);
+		},
+
+		updateProfile({ commit }, data) {
+			return AuthService.updateProfile(data).then(
+				(res) => {
+					commit('setUser', res.data);
+					return Promise.resolve(res.data);
+				},
+				(error) => {
+					return Promise.reject(error.response.data);
 				}
 			);
 		},
@@ -49,6 +56,18 @@ export const auth = {
 				(error) => {
 					commit('logout');
 					return Promise.reject(error);
+				}
+			);
+		},
+
+		changePassword({ commit }, data) {
+			return AuthService.changePassword(data).then(
+				() => {
+					commit('logout');
+					return Promise.resolve();
+				},
+				(error) => {
+					return Promise.reject(error.response.data);
 				}
 			);
 		},
@@ -71,6 +90,11 @@ export const auth = {
 
 		refresh(state, token) {
 			localStorage.setItem('token', token);
+		},
+
+		setUser(state, user) {
+			state.user = user;
+			localStorage.setItem('user', JSON.stringify(user));
 		},
 	},
 

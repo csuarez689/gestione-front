@@ -22,7 +22,23 @@ class AuthService {
 		return axios
 			.get(`${API_URL}/profile`, { headers: authHeader() })
 			.then((res) => {
-				return res.data;
+				return res;
+			});
+	}
+
+	updateProfile(data) {
+		return axios
+			.put(`${API_URL}/profile`, data, { headers: authHeader() })
+			.then((res) => {
+				return res;
+			});
+	}
+
+	changePassword(data) {
+		return axios
+			.put(`${API_URL}/change_password`, data, { headers: authHeader() })
+			.then((res) => {
+				return res;
 			});
 	}
 

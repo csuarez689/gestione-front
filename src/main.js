@@ -42,6 +42,7 @@ const vm = new Vue({
 			this.$bvToast.toast([vNodeMessage], options);
 		},
 	},
+	created() {},
 	render: (h) => h(App),
 }).$mount('#app');
 
@@ -73,7 +74,7 @@ axios.interceptors.response.use(
 			if (error.status !== 500)
 				if (error.response.data && error.response.data.message)
 					vm.createToast(error.response.data.message, 'danger');
-			vm.createToast('¡Upps!, ha ocurrido un error.', 'danger');
+				else vm.createToast('¡Upps!, ha ocurrido un error.', 'danger');
 		}
 		return Promise.reject(error);
 	}
