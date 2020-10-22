@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<b-navbar toggleable="md" type="dark">
-			<b-navbar-brand to="/" class="mr-5">GestionE</b-navbar-brand>
+			<b-navbar-brand class="mr-5">GestionE</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -34,7 +34,16 @@
 						class="nav-item-link"
 						>Ordenes de Merito
 					</b-nav-item>
+					<b-nav-item-dropdown
+						text="Informes"
+						:class="{ 'item-active': activeDropdown }"
+					>
+						<b-dropdown-item to="/reports/schoolsCount"
+							>Canitdad de Escuelas</b-dropdown-item
+						>
+					</b-nav-item-dropdown>
 				</b-navbar-nav>
+
 				<b-navbar-nav v-else>
 					<b-nav-item
 						to="/teachingPlant"
@@ -87,26 +96,112 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters("auth", ["userFullName"])
+		...mapGetters("auth", ["userFullName"]),
+		activeDropdown() {
+			return this.$route.path.includes("reports");
+		}
 	}
 };
 </script>
 <style lang="scss">
+$defbackgrnd: #365070;
+$activebg: #ffffff;
+$colordefault: #ffffff;
+$activecolor: #365070;
+$bdrcolor: #ffffff;
+$dropDown: true;
 .navbar {
-	background: #365070;
-
+	background-color: $defbackgrnd;
+	border-color: $bdrcolor;
 	.navbar-brand {
-		font-style: italic;
-		opacity: 0.8;
-		font-size: 1.6em;
-		color: #9ca9b8 !important;
+		color: $colordefault;
+		&:hover,
+		&:focus {
+			color: $activecolor;
+		}
 	}
-	.nav-item-link {
-		font-size: 1.1em;
+	.navbar-text {
+		color: $colordefault;
+	}
+	.item-active {
+		border-bottom: 3px solid rgba(255, 255, 255, 1);
+		border-radius: 1px;
+		border-spacing: 20px;
+		color: whitesmoke !important;
+	}
+	.navbar-nav {
+		> li {
+			> a {
+				color: $colordefault;
+				&:hover,
+				&:focus {
+					color: $activecolor;
+				}
+			}
+			@if $dropDown {
+				> .dropdown-menu {
+					background-color: $defbackgrnd;
+					> li > a {
+						color: $colordefault;
+						&:hover,
+						&:focus {
+							color: $activecolor;
+							background-color: $activebg;
+						}
+					}
+					.divider {
+						background-color: $activebg;
+					}
+				}
+			}
+		}
+		> .active {
+			> a,
+			> a:hover,
+			> a:focus {
+				color: $activecolor;
+				background-color: $activebg;
+			}
+		}
+	}
+	.navbar-toggle {
+		border-color: $bdrcolor;
+		&:hover,
+		&:focus {
+			background-color: $activebg;
+		}
+		.icon-bar {
+			background-color: $colordefault;
+		}
+	}
+	.navbar-collapse,
+	.navbar-form {
+		border-color: $colordefault;
+	}
+	.navbar-link {
+		color: $colordefault;
+		&:hover {
+			color: $activecolor;
+		}
 	}
 }
-.item-active {
-	color: white !important;
-	font-weight: 500;
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu {
+		> li > a {
+			color: $colordefault;
+			&:hover,
+			&:focus {
+				color: $activecolor;
+			}
+		}
+		> .active {
+			> a,
+			> a:hover,
+			> a:focus {
+				color: $activecolor;
+				background-color: $activebg;
+			}
+		}
+	}
 }
 </style>

@@ -19,6 +19,9 @@ Vue.filter('capitalize', function(value) {
 	value = value.toString();
 	return value.charAt(0).toUpperCase() + value.slice(1);
 });
+Vue.filter('pluralize', function(value, number) {
+	return number > 1 ? value + 's' : value;
+});
 
 const vm = new Vue({
 	router,

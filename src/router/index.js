@@ -7,6 +7,7 @@ import TeachersRoutes from './teachers-routes';
 import TeachingPlantRoutes from './teachingPlant-router';
 import OrdenesMeritoRoutes from './ordenes-merito';
 import AuthRoutes from './auth-routes';
+import ReportsRoutes from './reports-routes';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,7 @@ const routes = [
 	...TeachersRoutes,
 	...TeachingPlantRoutes,
 	...OrdenesMeritoRoutes,
+	...ReportsRoutes,
 	{
 		path: '*',
 		redirect: store.getters['auth/redirectUrl'],
