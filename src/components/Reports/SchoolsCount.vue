@@ -52,18 +52,19 @@
 		</b-row>
 		<b-row align-h="center">
 			<b-card
-				v-if="report.length || report.departments"
+				v-for="(item, index) in report"
+				:key="index"
 				class="main-card"
 			>
 				<b-card-title>
 					<h6>
-						<b>Provincia de San Luis:</b>
-						{{ report.total }}
-						{{ "escuela" | pluralize(report.total) }}.
+						<b>Provincia de {{ item.province }}: </b>
+						{{ item.total }}
+						{{ "escuela" | pluralize(item.total) }}.
 					</h6></b-card-title
 				>
 				<b-card
-					v-for="(item, index) in report.departments"
+					v-for="(item, index) in item.departments"
 					:key="index"
 					class="mt-4"
 				>
@@ -85,7 +86,7 @@
 					</p>
 				</b-card>
 			</b-card>
-			<b-card v-else class="no-results"
+			<b-card v-if="!report.length" class="no-results"
 				>No se encontraron resultados!</b-card
 			>
 		</b-row>
@@ -114,7 +115,6 @@ export default {
 				)
 				.then(data => {
 					this.report = data;
-					console.log(data);
 				})
 				.finally(() => this.$store.commit("setLoader", false));
 		},
@@ -142,6 +142,7 @@ export default {
 	.card {
 		margin: auto;
 		width: 35rem;
+		background: #ebebeb;
 	}
 }
 

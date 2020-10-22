@@ -24,6 +24,14 @@ export default [
 						/* webpackChunkName: "reports"*/ '../components/Reports/SchoolsCount.vue'
 					),
 			},
+			{
+				path: 'teachingPlantCharges',
+				name: 'TeachingPlantCharges',
+				component: () =>
+					import(
+						/* webpackChunkName: "reports"*/ '../components/Reports/TeachingPlantCharges.vue'
+					),
+			},
 		],
 	},
 ];

@@ -41,6 +41,9 @@
 						<b-dropdown-item to="/reports/schoolsCount"
 							>Canitdad de Escuelas</b-dropdown-item
 						>
+						<b-dropdown-item to="/reports/teachingPlantCharges"
+							>Cargos Planta Docente</b-dropdown-item
+						>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 
