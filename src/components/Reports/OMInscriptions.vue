@@ -3,6 +3,23 @@
 		<b-row class="mt-4 mb-4"
 			><h5 class="m-auto">Inscripciones Orden de Merito</h5></b-row
 		>
+		<b-row class="mb-5" align-h="center">
+			<b-col sm="3">
+				<select
+					class="form-control"
+					v-model="year"
+					@change="getReport"
+				>
+					<option value selected>Año</option>
+					<option
+						v-for="year in years"
+						:key="year.year"
+						:value="year.year"
+						>{{ year.year }}</option
+					>
+				</select>
+			</b-col>
+		</b-row>
 		<b-row align-h="center">
 			<b-card
 				v-for="(item, index) in report"
