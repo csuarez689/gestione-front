@@ -32,6 +32,14 @@ export default [
 						/* webpackChunkName: "reports"*/ '../components/Reports/TeachingPlantCharges.vue'
 					),
 			},
+			{
+				path: 'omInscriptions',
+				name: 'OmInscriptions',
+				component: () =>
+					import(
+						/* webpackChunkName: "reports"*/ '../components/Reports/OMInscriptions.vue'
+					),
+			},
 		],
 	},
 ];

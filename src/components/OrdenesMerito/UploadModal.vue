@@ -186,7 +186,8 @@ export default {
 						cancelTitle: "Cancelar",
 						footerClass: "p-2",
 						hideHeaderClose: false,
-						centered: true
+						centered: true,
+						bodyClass: "text-center"
 					}
 				)
 				.then(value => {

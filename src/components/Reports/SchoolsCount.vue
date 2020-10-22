@@ -109,7 +109,7 @@ export default {
 	methods: {
 		getReport() {
 			this.$store.commit("setLoader", true);
-			dataService
+			return dataService
 				.getAll(
 					`reports/schoolsCount?level_id=${this.level_id}&sector_id=${this.sector_id}&type_id=${this.type_id}`
 				)
@@ -119,18 +119,18 @@ export default {
 				.finally(() => this.$store.commit("setLoader", false));
 		},
 		getFiltersValues() {
-			dataService
+			return dataService
 				.getAll("formData?include=sectors,types,levels")
 				.then(data => {
 					this.levels = data.levels;
 					this.sectors = data.sectors;
 					this.types = data.types;
+					return Promise.resolve();
 				});
 		}
 	},
 	created() {
-		this.getReport();
-		this.getFiltersValues();
+		Promise.all([this.getFiltersValues(), this.getReport()]);
 	}
 };
 </script>

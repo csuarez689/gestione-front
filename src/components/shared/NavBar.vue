@@ -44,6 +44,9 @@
 						<b-dropdown-item to="/reports/teachingPlantCharges"
 							>Cargos Planta Docente</b-dropdown-item
 						>
+						<b-dropdown-item to="/reports/omInscriptions"
+							>Inscripciones Orden de Merito</b-dropdown-item
+						>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 
@@ -118,10 +121,6 @@ $dropDown: true;
 	border-color: $bdrcolor;
 	.navbar-brand {
 		color: $colordefault;
-		&:hover,
-		&:focus {
-			color: $activecolor;
-		}
 	}
 	.navbar-text {
 		color: $colordefault;
