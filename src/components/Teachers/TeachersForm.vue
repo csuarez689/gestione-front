@@ -62,11 +62,11 @@
 								name="bilingual"
 								v-model="form.gender"
 							>
-								<b-form-radio value="Masculino"
-									>Masculino</b-form-radio
+								<b-form-radio value="MASCULINO"
+									>MASCULINO</b-form-radio
 								>
-								<b-form-radio value="Femenino"
-									>Femenino</b-form-radio
+								<b-form-radio value="FEMENINO"
+									>FEMENINO</b-form-radio
 								>
 							</b-form-radio-group>
 						</b-form-group>
@@ -122,7 +122,7 @@ export default {
 				name: "",
 				last_name: "",
 				cuil: "",
-				gender: "Masculino",
+				gender: "MASCULINO",
 				locality_id: ""
 			}
 		};

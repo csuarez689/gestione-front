@@ -130,7 +130,7 @@ export default {
 		}
 	},
 	created() {
-		Promise.all([this.getFiltersValues(), this.getReport()]);
+		this.getFiltersValues().then(() => this.getReport());
 	}
 };
 </script>

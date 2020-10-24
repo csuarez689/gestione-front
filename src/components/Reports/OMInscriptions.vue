@@ -5,11 +5,7 @@
 		>
 		<b-row class="mb-5" align-h="center">
 			<b-col sm="3">
-				<select
-					class="form-control"
-					v-model="year"
-					@change="getReport"
-				>
+				<select class="form-control" v-model="year" @change="getReport">
 					<option value selected>Año</option>
 					<option
 						v-for="year in years"
@@ -124,7 +120,7 @@ export default {
 		}
 	},
 	created() {
-		Promise.all([this.getFiltersValues(), this.getReport()]);
+		this.getReport().then(() => this.getFiltersValues());
 	}
 };
 </script>
