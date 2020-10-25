@@ -47,6 +47,10 @@
 						<b-dropdown-item to="/reports/omInscriptions"
 							>Inscripciones Orden de Merito</b-dropdown-item
 						>
+						<b-dropdown-item to="/reports/omInscriptionsJobs"
+							>Inscripciones Orden de Merito y
+							Cargos</b-dropdown-item
+						>
 					</b-nav-item-dropdown>
 				</b-navbar-nav>
 

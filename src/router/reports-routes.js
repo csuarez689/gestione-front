@@ -40,6 +40,14 @@ export default [
 						/* webpackChunkName: "reports"*/ '../components/Reports/OMInscriptions.vue'
 					),
 			},
+			{
+				path: 'omInscriptionsJobs',
+				name: 'OmInscriptionsJobs',
+				component: () =>
+					import(
+						/* webpackChunkName: "reports"*/ '../components/Reports/OMIncriptionsJobs.vue'
+					),
+			},
 		],
 	},
 ];

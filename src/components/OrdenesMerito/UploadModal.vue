@@ -64,6 +64,13 @@
 				<b-row class="mt-2">
 					<b-col> <b>Titulo 1:</b> De caracter obligatorio. </b-col>
 				</b-row>
+				<b-row class="mt-2">
+					<b-col>
+						<b
+							>MAXIMO DE REGISTROS ERRONEOS PERMITIDOS: 50.</b
+						></b-col
+					>
+				</b-row>
 			</b-alert>
 
 			<form ref="form" @submit.prevent="sendForm">
