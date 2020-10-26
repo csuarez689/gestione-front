@@ -232,7 +232,7 @@ export default {
 				"acciones"
 			],
 			baseEndpoint: "teachingPlant",
-			endpoint: `schools/${this.$store.state.auth.user.school_id}/${this.baseEndpoint}`
+			endpoint: `schools/${this.$store.state.auth.user.school_id}/teachingPlant`
 		};
 	}
 };

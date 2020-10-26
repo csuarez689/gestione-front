@@ -104,7 +104,7 @@
 						class="delete"
 						href
 						@click.prevent="
-							$refs.deleteModal.showModal(enpoint, row.item.id)
+							$refs.deleteModal.showModal(endpoint, row.item.id)
 						"
 					>
 						<i class="material-icons" title="Borrar">delete</i>

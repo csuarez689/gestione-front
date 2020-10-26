@@ -1,0 +1,335 @@
+[33mcommit 8f3ce9298b4f202b6f6adb341569b60c22674a52[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 26 01:41:38 2020 -0300
+
+    removed delete with link
+
+[33mcommit 376a0e4be28a9361d8053eebce54ca91dc002ecf[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:40:27 2020 -0300
+
+    added .env.example
+
+[33mcommit fd8f627130dc977d4ed6b930f098c048fb9eaac8[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:27:41 2020 -0300
+
+    Delete hosting.ZGlzdA.cache
+
+[33mcommit 7d90c3fb7c250b25b54d4640b1d71ef55311ce52[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:27:19 2020 -0300
+
+    Delete firebase.json
+
+[33mcommit e3a7b1a053086444d566a518e0f54ed6566d4882[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:27:06 2020 -0300
+
+    Delete .firebaserc
+
+[33mcommit e2b36ec9475e16f0c63f165d7990b8ff1cf30eed[m
+Merge: 65308d1 c803e32
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:25:56 2020 -0300
+
+    Merge branch 'master' of github.com:csuarez689/gestione-front
+
+[33mcommit 65308d18f4700d0f346901cf01b7462e178f3380[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:25:01 2020 -0300
+
+    updated
+
+[33mcommit c803e32a931243ed50b05f2d1dd60597f7f669a8[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:23:16 2020 -0300
+
+    Delete .env
+
+[33mcommit 43969f5231b8e8559e7f1f6a2363dab9eb6af79e[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:22:18 2020 -0300
+
+    updated .gitignore
+
+[33mcommit a1d2ed38d7cfec5f46f78bfcac045e478334f8f6[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 22:19:05 2020 -0300
+
+    final configs
+
+[33mcommit 1ac06688c56d2c1c80b924412883e51f079ef5a2[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Oct 25 17:57:05 2020 -0300
+
+    charges agains orden de merito
+
+[33mcommit 133b936805d0640ec7eca9e1ac6ce5ba4eb0ac4f[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sat Oct 24 03:52:48 2020 -0300
+
+    adapted initial data to promises
+
+[33mcommit e7f4d3960b53b48d37f6b2bcc61c9f71f6197bc3[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Thu Oct 22 19:12:12 2020 -0300
+
+    added year filter
+
+[33mcommit 0c7dad0bd0044d72c04200ca829b80918a4660b8[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Thu Oct 22 18:57:53 2020 -0300
+
+    om inscriptions report
+
+[33mcommit 77259cd60a5a23699dc2ec9f5e0923564962172c[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Thu Oct 22 04:54:03 2020 -0300
+
+    amount charges schools report
+
+[33mcommit ce1fbcf940dda294a06a87ec8a83952937c7360c[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Wed Oct 21 22:45:21 2020 -0300
+
+    schools count report
+
+[33mcommit 1124f5316e2c02548aa4728806972048e64ba444[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 20 03:47:19 2020 -0300
+
+    added missing catch promise reject
+
+[33mcommit 3fb47979d32a1bd3dad1d4da5e00cf7b8f7dbe49[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 20 01:49:47 2020 -0300
+
+    removed console.log debugs
+
+[33mcommit 6652762394a8b0e01e7439acba9a41cc52f7ba49[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 20 01:46:06 2020 -0300
+
+    get user profile, change password, update profile, get user school
+
+[33mcommit 692ac863360e2d6f198a2bfe5c49a2aec77b3372[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 19 19:35:16 2020 -0300
+
+    errors interceptors
+
+[33mcommit 3524d57e6fd7b16f6ea55eb3a06d92650a1bbf77[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 19 18:05:52 2020 -0300
+
+    reset and forgot password
+
+[33mcommit cd3008a7af13ce3d1d26281a515dfe3df54dad59[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sat Oct 17 19:22:29 2020 -0300
+
+    added datalist feedback for some inputs fields
+
+[33mcommit 654d55834f08ba21e2292b8b0fd3a6564b3df48a[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sat Oct 17 03:13:26 2020 -0300
+
+    loading state for diferents components
+
+[33mcommit b332ef16edbbad30ab216330ecb1b0c60edcedf6[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Fri Oct 16 19:53:18 2020 -0300
+
+    added loader to action button
+
+[33mcommit 29213fc305eb1129522d3853bb9e73557562ffc4[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Fri Oct 16 19:52:06 2020 -0300
+
+    added loader color style
+
+[33mcommit 7ea485822df7eebfcaa33c9a1c4a75d1ff45a3d2[m
+Merge: c0ea6e9 b6ea91d
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Thu Oct 15 21:00:26 2020 -0300
+
+    Merge branch 'login'
+    Modificado servicios auth
+    Agregados actions vuex auth
+    Agregados mutators vuex auth
+    Agregado axios interceptor refresh token
+    Modificada vista login
+
+[33mcommit b6ea91d603ef0f74ae6d6565a804268d5b158586[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Thu Oct 15 20:59:12 2020 -0300
+
+    done auth & refresh handler
+
+[33mcommit c0ea6e94a0b0c2d7dbbaa195b006fa2fd71c2269[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Wed Oct 14 21:55:47 2020 -0300
+
+    failed ordenes merito crud
+
+[33mcommit ce533ef5f02a8958d5db36c3c84e3c8740d91ce1[m
+Merge: 2ce0422 3443c4b
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Wed Oct 14 12:20:03 2020 -0300
+
+    Merge branch 'ordenMerito'
+    Terminada vistas ordenes de meritos
+    Upload file
+    Proccess file
+    Validation Errors
+
+[33mcommit 3443c4b6a77db82307626315dde6b35557da0a24[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Wed Oct 14 12:19:08 2020 -0300
+
+    orden de merito views
+
+[33mcommit 2ce0422e8f145f1aafe67ea5e3f606171436e3ba[m
+Merge: 2ce7df1 5b9f1e3
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 13 16:35:51 2020 -0300
+
+    Merge branch 'teachingPlant'
+    Teaching Plant:
+    -teaching plant table
+    -teaching plant filters
+    -teaching plant CRUD and validations
+    -modified dataService for recive optional query params
+
+[33mcommit 5b9f1e33dcbbf408cfe031534b0b3603e0677846[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 13 16:35:13 2020 -0300
+
+    teaching plant views ready
+
+[33mcommit dd172394a96924731b0b0532770a50b062151a83[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 13 14:05:58 2020 -0300
+
+    added data services, teachingPlant router, teachingPlant table, teachingPlant filters
+
+[33mcommit 2ce7df1e2b82a62d7705142649d169083c9214ac[m
+Merge: a8ca59c 317351b
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 6 21:52:37 2020 -0300
+
+    Merge branch 'teachinPlant'
+    Tengo que arreglar la cagada que me mande en el enrutador
+
+[33mcommit 317351bca5b1f154e1f0288166c56c611b8e9e77[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 6 21:51:10 2020 -0300
+
+    arreglando la cagada que me mande parte1
+
+[33mcommit a8ca59c6a3d4bc8704b906fa94ef8c34c024c768[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 6 17:12:21 2020 -0300
+
+    reparado router
+
+[33mcommit d0a5e7035cc30be6c1da00b96c7f2ecb8fd1807f[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 6 15:15:13 2020 -0300
+
+    modificado estilo de la barra de navegacion
+
+[33mcommit 024c33c74bc69c911c81778be5850f15f591c075[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Oct 6 00:21:43 2020 -0300
+
+    proteccion de rutas segun rol
+
+[33mcommit d9e8acba02bb4f86df4c18ed8414c29e92647da3[m
+Merge: 8b7165f 6f937b2
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 20:03:37 2020 -0300
+
+    Merge branch 'navBar'
+
+[33mcommit 6f937b25a4db6459065d51430c33b5d755f6eda5[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 20:01:36 2020 -0300
+
+    agregado navLinks por rol de usuario
+
+[33mcommit 8b7165f334ccbcfe7e40594e36fff9913673329a[m
+Merge: 74fbcf2 83eeeff
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 19:51:19 2020 -0300
+
+    Merge pull request #3 from csuarez689/data-service
+    
+    modificados para trabajar con dataService
+
+[33mcommit 83eeeff8555aff24bc11b1b348a1f5b2e3f3fc63[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 19:47:41 2020 -0300
+
+    modificados para trabajar con dataService
+
+[33mcommit 74fbcf293cbd5d60ff487f707a13a05f6374accd[m
+Merge: acc3ccc e3f1286
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 18:47:12 2020 -0300
+
+    Merge pull request #2 from csuarez689/auth
+    
+    reparaciones menores
+
+[33mcommit e3f12868a95daeced1b82ae96599d0c54af22ace[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 18:45:32 2020 -0300
+
+    reparaciones menores
+
+[33mcommit acc3cccdfc06da88414c83a44ef39892fb7936ec[m
+Merge: 6f3bce4 29c361d
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 12:43:05 2020 -0300
+
+    Merge pull request #1 from csuarez689/auth
+    
+    agregado vuex para autenticacion
+
+[33mcommit 29c361d35fae60477f489da49f386c6c744aa8a6[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Oct 5 12:38:17 2020 -0300
+
+    agregado vuex store, para manejo de autenticacion y proteccion de rutas
+
+[33mcommit 6f3bce4392eb576d8eea0350e03cf8c455c10617[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Mon Sep 28 20:10:10 2020 -0300
+
+    teachers crud
+
+[33mcommit 926dae952b3bf0aa19b485b5c7dc1a197966cea3[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Sun Sep 27 17:41:39 2020 -0300
+
+    implemented auth and refresh
+
+[33mcommit 89b8f637cd25821b129a5b205eb096bfaecbedad[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Sep 22 03:18:10 2020 -0300
+
+    auth login
+
+[33mcommit fbf5ecafc3bf8ba446c8f4a931d63ce661b52fc0[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Tue Sep 22 00:48:43 2020 -0300
+
+    admin schools and users cruds
+
+[33mcommit 8834ec80bd1ee57d12e2938ea4eb0ef2053a2d92[m
+Author: Claudio Suarez <csuarez689@gmail.com>
+Date:   Fri Sep 18 00:46:54 2020 -0300
+
+    init
