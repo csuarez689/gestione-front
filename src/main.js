@@ -49,11 +49,6 @@ const vm = new Vue({
 			this.$bvToast.toast([vNodeMessage], options);
 		},
 	},
-	watch: {
-		online(value) {
-			console.log(value);
-		},
-	},
 	render: (h) => h(App),
 }).$mount('#app');
 
@@ -73,12 +68,10 @@ axios.interceptors.response.use(
 		return response;
 	},
 	(error) => {
+		const loginUrl = process.env.VUE_APP_API_URL + '/auth/login';
 		const originalRequest = error.config;
 		if (error.response.status === 401) {
-			if (
-				!originalRequest._retry &&
-				originalRequest.url != 'http://localhost:8000/api/auth/login'
-			) {
+			if (!originalRequest._retry && originalRequest.url != loginUrl) {
 				originalRequest._retry = true;
 				return store
 					.dispatch('auth/refresh')
@@ -91,10 +84,10 @@ axios.interceptors.response.use(
 					});
 			}
 		} else {
-			if (error.status !== 500)
+			if (error.status !== 500) {
 				if (error.response.data && error.response.data.message)
 					vm.createToast(error.response.data.message, 'danger');
-				else vm.createToast('¡Upps!, ha ocurrido un error.', 'danger');
+			} else vm.createToast('¡Upps!, ha ocurrido un error.', 'danger');
 		}
 		return Promise.reject(error);
 	}

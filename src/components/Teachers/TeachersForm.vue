@@ -168,7 +168,6 @@ export default {
 						data.locality.department.province_id;
 					this.location.department_id = data.locality.department.id;
 					this.location.locality_id = data.locality.id;
-					this.selectedUrl = data._links.self;
 				})
 				.catch(() => {
 					this.$router.go(-1);

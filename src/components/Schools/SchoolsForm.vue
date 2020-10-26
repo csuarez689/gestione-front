@@ -613,7 +613,6 @@ export default {
 						this.location.department_id =
 							res[2].locality.department.id;
 						this.location.locality_id = res[2].locality.id;
-						this.selectedUrl = res[2]._links.self;
 					}
 				})
 				.catch(() => {

@@ -41,19 +41,21 @@ export default {
 
 	data() {
 		return {
-			url: null,
+			endpoint: "",
+			id: "",
 			loader: false
 		};
 	},
 	methods: {
-		showModal(item) {
-			this.url = item._links.self;
-			if (this.url) this.$refs.modal.show();
+		showModal(endpoint, id) {
+			this.id = id;
+			this.endpoint = endpoint;
+			this.$refs.modal.show();
 		},
 		deleteItem() {
 			this.loader = true;
 			dataService
-				.delete(this.url)
+				.delete(this.endpoint, this.id)
 				.then(() => {
 					this.$root.createToast("Registro eliminado.", "success");
 					this.$emit("on-deleted");

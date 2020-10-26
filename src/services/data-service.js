@@ -23,11 +23,12 @@ class DataService {
 			});
 	}
 
-	delete(endpoint, withLink = true) {
-		let url = withLink ? endpoint : `${API_URL}/${endpoint}`;
-		return axios.delete(url, { headers: authHeader() }).then((res) => {
-			return res.data;
-		});
+	delete(endpoint, id) {
+		return axios
+			.delete(`${API_URL}/${endpoint}/${id}`, { headers: authHeader() })
+			.then((res) => {
+				return res.data;
+			});
 	}
 
 	create(endpoint, data) {

@@ -143,7 +143,10 @@
 							class="delete"
 							href
 							@click.prevent="
-								$refs.deleteModal.showModal(row.item)
+								$refs.deleteModal.showModal(
+									baseEndpoint,
+									row.item.id
+								)
 							"
 						>
 							<i class="material-icons" title="Borrar">delete</i>
@@ -228,7 +231,8 @@ export default {
 				},
 				"acciones"
 			],
-			endpoint: `schools/${this.$store.state.auth.user.school_id}/teachingPlant`
+			baseEndpoint: "teachingPlant",
+			endpoint: `schools/${this.$store.state.auth.user.school_id}/${this.baseEndpoint}`
 		};
 	}
 };

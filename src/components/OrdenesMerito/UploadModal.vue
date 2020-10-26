@@ -160,7 +160,7 @@ export default {
 							`Se procesaron de manera correcta ${res.success_rows}`,
 							"success"
 						);
-					this.showMsgBox(res);
+					else this.showMsgBox(res);
 				})
 				.catch(error => {
 					this.vErrors = error.response.data.errors ?? [];

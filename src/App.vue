@@ -5,18 +5,6 @@
 </template>
 <script>
 </script>
-<script>
-export default {
-	data() {
-		return { online: true };
-	},
-	watch: {
-		"navigator.onLine"(value) {
-			console.log(value);
-		}
-	}
-};
-</script>
 <style lang="scss">
 @import "./assets/sass/table";
 
