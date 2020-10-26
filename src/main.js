@@ -13,6 +13,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
+Vue.config.devtools = false;
+Vue.config.debug = false;
+Vue.config.silent = true;
 
 Vue.filter('capitalize', function(value) {
 	if (!value) return '';

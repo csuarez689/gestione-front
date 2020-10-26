@@ -130,7 +130,7 @@ export default {
 		}
 	},
 	created() {
-		this.getFiltersValues().then(() => this.getReport());
+		this.getReport().then(() => this.getFiltersValues());
 	}
 };
 </script>
