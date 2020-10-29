@@ -9,8 +9,12 @@
 			blur="1px"
 			class="loader"
 		>
-			<b-container> <router-view></router-view></b-container
-		></b-overlay>
+			<b-container>
+				<transition name="fade" mode="out-in">
+					<router-view></router-view>
+				</transition>
+			</b-container>
+		</b-overlay>
 	</div>
 </template>
 <script>
